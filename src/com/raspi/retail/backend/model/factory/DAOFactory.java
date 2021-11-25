@@ -23,7 +23,7 @@ public class DAOFactory extends ModelFactory {
     @Override
     public DAO createDAOPrototype(String type) {
         try {
-            return (DAO) prototypeStore.get(type).clone();
+            return (DAO) prototypeStore.get(type.toLowerCase()).clone();
         } catch (CloneNotSupportedException cnsExc) {
             System.err.println("Cannot create prototype.");
             System.err.println(cnsExc.getMessage());

@@ -2,6 +2,7 @@ package com.raspi.retail.backend.model.daos;
 
 import com.raspi.retail.backend.model.ModelFactory;
 import com.raspi.retail.backend.model.ModelFactoryProducer;
+import com.raspi.retail.backend.model.daos.query.store.UserDAOAdminQueryStore;
 import com.raspi.retail.backend.model.daos.query.store.UserDAOCustomerQueryStore;
 import com.raspi.retail.backend.model.daos.query.store.UserDAOGuestQueryStore;
 import com.raspi.retail.backend.model.daos.query.store.UserDAOQueryStore;
@@ -55,6 +56,8 @@ public class UserDAO implements DAO {
             setQuery = UserDAOCustomerQueryStore.valueOf(queryType.getQueryType()).getQuery();
         } else if(customerType == CustomerType.GUEST) {
             setQuery = UserDAOGuestQueryStore.valueOf(queryType.getQueryType()).getQuery();
+        } else if(customerType == CustomerType.ADMIN) {
+            setQuery = UserDAOAdminQueryStore.valueOf(queryType.getQueryType()).getQuery();
         }
 
         return setQuery;
@@ -103,6 +106,32 @@ public class UserDAO implements DAO {
 
        return users;
 
+    }
+
+    public UserDTO getOneUser(CustomerType userType, int id) {
+
+        UserDTO user = null;
+        ResultSet dbUser;
+
+        String setQuery = queryBuilder(userType, UserDAOQueryStore.GET_USER_BY_ID);
+
+        try {
+
+            if(dbct != null && !setQuery.equals("")) {
+                PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+                prepStmt.setInt(1, id);
+                dbUser = prepStmt.executeQuery();
+                user = convertResultSetRecordToDTO(userType, dbUser);
+            } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+
+        } catch (SQLException sqlExc) {
+            System.err.println("Something went wrong with retrieving data from DB.");
+            System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
+        }
+
+        return user;
     }
 
     @Override
@@ -199,8 +228,80 @@ public class UserDAO implements DAO {
         return null;
     }
 
-    @Override
-    public DTO convertResultSetRecordToDTO(ResultSet rs) {
+
+
+
+    public UserDTO convertResultSetRecordToDTO(CustomerType userType, ResultSet rs) {
+        if(userType == CustomerType.CUSTOMER) {
+            MemberDTO currCustomer = (MemberDTO) uDTOFactory.createDTOPrototype("customer");
+
+            try {
+                if(rs.next()) {
+                        currCustomer.setId(rs.getInt("id"));
+                        currCustomer.setUsername(rs.getString("username"));
+                        currCustomer.setPassword(Security.decrypt(rs.getString("password")));
+                        currCustomer.setEmail(rs.getString("email"));
+                        currCustomer.setFirstName(rs.getString("firstName"));
+                        currCustomer.setLastName(rs.getString("lastName"));
+                        currCustomer.setAddressLine1(rs.getString("addressLine1"));
+                        currCustomer.setAddressLine2(rs.getString("addressLine2"));
+                        currCustomer.setCcNo(new CreditCard(rs.getString("ccNo")));
+                } else {
+                    System.out.println("There are no Registered Customers.");
+                }
+            } catch (SQLException sqlExc) {
+                System.err.println("Something went wrong when converting ResultSet to ArrayList.");
+                System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+            }
+
+            return currCustomer;
+        }
+        else if(userType == CustomerType.GUEST) {
+            GuestDTO currGuest = (GuestDTO) uDTOFactory.createDTOPrototype("guest");
+
+            try {
+                if(rs.next()) {
+
+                    currGuest.setId(rs.getInt("id"));
+                    currGuest.setEmail(rs.getString("email"));
+                    currGuest.setFirstName(rs.getString("firstName"));
+                    currGuest.setLastName(rs.getString("lastName"));
+                    currGuest.setAddressLine1(rs.getString("addressLine1"));
+                    currGuest.setAddressLine2(rs.getString("addressLine2"));
+                    currGuest.setCcNo(new CreditCard(rs.getString("ccNo")));
+                } else {
+                System.out.println("There are currently no Guest Accounts.");
+                }
+            } catch (SQLException sqlExc) {
+                System.err.println("Something went wrong when converting ResultSet to ArrayList.");
+                System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
+            }
+
+            return currGuest;
+
+        }
+        else if(userType == CustomerType.ADMIN) {
+            AdminDTO currAdmin = (AdminDTO) uDTOFactory.createDTOPrototype("admin");
+
+            try {
+                if(rs.next()) {
+
+                        currAdmin.setId(rs.getInt("id"));
+                        currAdmin.setUsername(rs.getString("username"));
+                        currAdmin.setPassword(Security.decrypt(rs.getString("password")));
+
+                } else {
+                    System.out.println("There are currently no Admins. It is recommended to add one.");
+                }
+            } catch(SQLException sqlExc) {
+                System.err.println("Something went wrong when converting ResultSet to ArrayList.");
+                System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
+            }
+
+            return currAdmin;
+
+        }
+
         return null;
     }
 
@@ -217,5 +318,8 @@ public class UserDAO implements DAO {
         return null;
     }
 
-
+    @Override
+    public DTO convertResultSetRecordToDTO(ResultSet rs) {
+        return null;
+    }
 }
