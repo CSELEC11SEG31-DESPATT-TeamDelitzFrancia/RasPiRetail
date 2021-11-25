@@ -134,6 +134,140 @@ public class UserDAO implements DAO {
         return user;
     }
 
+    /*
+                             _                      _   _               _
+          ___ _ __ ___  __ _| |_ ___ _ __ ___   ___| |_| |__   ___   __| |___
+         / __| '__/ _ \/ _` | __/ _ | '_ ` _ \ / _ | __| '_ \ / _ \ / _` / __|
+        | (__| | |  __| (_| | ||  __| | | | | |  __| |_| | | | (_) | (_| \__ \
+        \___|_|  \___|\__,_|\__\___|_| |_| |_|\___|\__|_| |_|\___/ \__,_|___/
+     */
+
+    /**
+     * adds a new user to the database.
+     *
+     * @param newUser a new user can either be a member (MemberDTO), a guest (GuestDTO), or an admin (AdminDTO).
+     */
+    public void addUser(UserDTO newUser) {
+
+        if(newUser instanceof MemberDTO) {
+            String setQuery = queryBuilder(CustomerType.CUSTOMER, UserDAOQueryStore.POST_NEW_USER);
+            MemberDTO member = (MemberDTO) newUser;
+
+            try {
+                if(dbct != null) {
+                    dbct.setAutoCommit(false);
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    prepStmt.setString(1, member.getUsername());
+                    prepStmt.setString(2, Security.encrypt(member.getPassword()));
+                    prepStmt.setString(3, member.getEmail());
+                    prepStmt.setString(4, member.getFirstName());
+                    prepStmt.setString(5, member.getLastName());
+                    prepStmt.setString(6, member.getAddressLine1());
+                    prepStmt.setString(7, member.getAddressLine2());
+                    prepStmt.setString(8, member.getCcNo().getCcNo());
+
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product Successfully Added!");
+
+                } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+        } catch(SQLException sqlExc) {
+            try {
+                dbct.rollback();
+                System.err.println("Something went wrong when adding file to database.");
+                System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+            } catch(SQLException rbExc) {
+                System.err.println("Something went wrong when rolling back changes.");
+                System.err.println("["+rbExc.getErrorCode()+"]: " + rbExc.getMessage());
+            }
+        }
+
+        }
+        if(newUser instanceof GuestDTO) {
+            String setQuery = queryBuilder(CustomerType.GUEST, UserDAOQueryStore.POST_NEW_USER);
+            GuestDTO guest = (GuestDTO) newUser;
+
+            try {
+                if(dbct != null) {
+                    dbct.setAutoCommit(false);
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    prepStmt.setString(1, guest.getEmail());
+                    prepStmt.setString(2, guest.getFirstName());
+                    prepStmt.setString(3, guest.getLastName());
+                    prepStmt.setString(4, guest.getAddressLine1());
+                    prepStmt.setString(5, guest.getAddressLine2());
+                    prepStmt.setString(6, guest.getCcNo().getCcNo());
+
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product Successfully Added!");
+
+                } else {
+                    System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+                }
+            } catch(SQLException sqlExc) {
+                try {
+                    dbct.rollback();
+                    System.err.println("Something went wrong when adding file to database.");
+                    System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+                } catch(SQLException rbExc) {
+                    System.err.println("Something went wrong when rolling back changes.");
+                    System.err.println("["+rbExc.getErrorCode()+"]: " + rbExc.getMessage());
+                }
+            }
+
+        }
+        if(newUser instanceof AdminDTO) {
+            String setQuery = queryBuilder(CustomerType.ADMIN, UserDAOQueryStore.POST_NEW_USER);
+            AdminDTO admin = (AdminDTO) newUser;
+
+            try {
+                if(dbct != null) {
+                    dbct.setAutoCommit(false);
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    prepStmt.setString(1, admin.getUsername());
+                    prepStmt.setString(2, Security.encrypt(admin.getPassword()));
+
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product Successfully Added!");
+
+                } else {
+                    System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+                }
+            } catch(SQLException sqlExc) {
+                try {
+                    dbct.rollback();
+                    System.err.println("Something went wrong when adding file to database.");
+                    System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+                } catch(SQLException rbExc) {
+                    System.err.println("Something went wrong when rolling back changes.");
+                    System.err.println("["+rbExc.getErrorCode()+"]: " + rbExc.getMessage());
+                }
+            }
+
+        }
+
+    }
+
+    /*
+                         _       _                      _   _               _
+         _   _ _ __   __| | __ _| |_ ___ _ __ ___   ___| |_| |__   ___   __| |___
+        | | | | '_ \ / _` |/ _` | __/ _ | '_ ` _ \ / _ | __| '_ \ / _ \ / _` / __|
+        | |_| | |_) | (_| | (_| | ||  __| | | | | |  __| |_| | | | (_) | (_| \__ \
+        \__,_| .__/ \__,_|\__,_|\__\___|_| |_| |_|\___|\__|_| |_|\___/ \__,_|___/
+             |_|
+     */
+
+    public void updateUser(int id, UserDTO updatedUserData) {
+
+    }
+
     @Override
     public <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs) {
 
@@ -227,9 +361,6 @@ public class UserDAO implements DAO {
 
         return null;
     }
-
-
-
 
     public UserDTO convertResultSetRecordToDTO(CustomerType userType, ResultSet rs) {
         if(userType == CustomerType.CUSTOMER) {
