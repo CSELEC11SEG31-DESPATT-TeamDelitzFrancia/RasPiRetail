@@ -7,7 +7,8 @@ public enum UserDAOAdminQueryStore {
     POST_NEW_USER("INSERT INTO `RasPiRetail_Admins` " +
             "SET `username`=?, `password`=?"),
     PATCH_USER("UPDATE `RasPiRetail_Admins` " +
-            "SET `username`=?, `password`=?"),
+            "SET `username`=?, `password`=?" +
+            "WHERE `id`=?"),
     DELETE_USER("DELETE FROM `RasPiRetail_Admins` WHERE `id`=?");
 
     private String query;

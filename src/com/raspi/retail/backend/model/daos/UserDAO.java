@@ -108,7 +108,46 @@ public class UserDAO implements DAO {
 
     }
 
-    public UserDTO getOneUser(CustomerType userType, int id) {
+        /**
+     * method to get a single user by id and returns a resultSet instead of an object.
+     *
+     * @param userType what type of user it will retrieve
+     * @param id user id
+     * @return ResultSet of that user
+     */
+    private ResultSet getUserResultSetById(CustomerType userType, int id) {
+
+        ResultSet dbUser;
+
+        String setQuery = queryBuilder(userType, UserDAOQueryStore.GET_USER_BY_ID);
+
+        try {
+
+            if(dbct != null && !setQuery.equals("")) {
+                PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+                prepStmt.setInt(1, id);
+                return prepStmt.executeQuery();
+            } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+
+        } catch (SQLException sqlExc) {
+            System.err.println("Something went wrong with retrieving data from DB.");
+            System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
+        }
+
+        return null;
+    }
+
+
+    /**
+     * method to get a single user by id.
+     *
+     * @param userType what type of user it will retrieve
+     * @param id user id
+     * @return UserDTO of that user
+     */
+    public UserDTO getOneUserById(CustomerType userType, int id) {
 
         UserDTO user = null;
         ResultSet dbUser;
@@ -264,9 +303,297 @@ public class UserDAO implements DAO {
              |_|
      */
 
+    /**
+     * updates a user with set parameters.
+     *
+     * @param id selected user id to update
+     * @param updatedUserData updated user data. Can either be a member (MemberDTO), a guest (GuestDTO), or an admin (AdminDTO).
+     */
     public void updateUser(int id, UserDTO updatedUserData) {
+        if(updatedUserData instanceof MemberDTO) {
+            String setQuery = queryBuilder(CustomerType.CUSTOMER, UserDAOQueryStore.PATCH_USER);
+
+            // 0. Typecast updatedUserData to MemberDTO
+            MemberDTO newMemberData = (MemberDTO) updatedUserData;
+
+            // 1. Save Previous Values to a temporary MemberDTO
+            MemberDTO oldMemberData = (MemberDTO) getOneUserById(CustomerType.CUSTOMER, id);
+
+            // 2. update values from the updated MemberDTO
+            try {
+                if(dbct != null) {
+
+                    dbct.setAutoCommit(false);
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    // 2.1 set fields
+
+                    // 2.1.0 set search params to the product id
+                    prepStmt.setInt(9, id);
+
+                    // 2.1.1 set params
+
+                    // set username
+                    if(!newMemberData.getUsername().equals(""))
+                        prepStmt.setString(1, newMemberData.getUsername());
+                    else
+                        prepStmt.setString(1, oldMemberData.getUsername());
+
+                    // set password
+                    if(!newMemberData.getPassword().equals(""))
+                        prepStmt.setString(2, newMemberData.getPassword());
+                    else
+                        prepStmt.setString(2, oldMemberData.getPassword());
+
+                    // set email
+                    if(!newMemberData.getEmail().equals(""))
+                        prepStmt.setString(3, newMemberData.getEmail());
+                    else
+                        prepStmt.setString(3, oldMemberData.getEmail());
+
+                    // set firstName
+                    if(!newMemberData.getFirstName().equals(""))
+                        prepStmt.setString(4, newMemberData.getFirstName());
+                    else
+                        prepStmt.setString(4, oldMemberData.getFirstName());
+
+                    // set lastName
+                    if(!newMemberData.getLastName().equals(""))
+                        prepStmt.setString(5, newMemberData.getLastName());
+                    else
+                        prepStmt.setString(5, oldMemberData.getLastName());
+
+                    // set addressLine1
+                    if(!newMemberData.getAddressLine1().equals(""))
+                        prepStmt.setString(6, newMemberData.getAddressLine1());
+                    else
+                        prepStmt.setString(6, oldMemberData.getAddressLine1());
+
+                    // set addressLine2
+                    if(!newMemberData.getAddressLine2().equals(""))
+                        prepStmt.setString(7, newMemberData.getAddressLine2());
+                    else
+                        prepStmt.setString(7, oldMemberData.getAddressLine2());
+
+                    // set ccNO
+                    if(!newMemberData.getCcNo().getCcNo().equals(""))
+                        prepStmt.setString(8, newMemberData.getCcNo().getCcNo());
+                    else
+                        prepStmt.setString(8, oldMemberData.getCcNo().getCcNo());
+
+                    // 2.1.2 save to db and return successful operation
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product updated!");
+
+                } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+
+        } catch(SQLException sqlExc) {
+            try {
+                dbct.rollback();
+                System.err.println("Something went wrong when adding file to database.");
+                System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+            } catch(SQLException rbExc) {
+                System.err.println("Something went wrong when rolling back changes.");
+                System.err.println("["+rbExc.getErrorCode()+"]: " + rbExc.getMessage());
+            }
+        }
+
+        }
+        if(updatedUserData instanceof GuestDTO) {
+            String setQuery = queryBuilder(CustomerType.GUEST, UserDAOQueryStore.PATCH_USER);
+
+            // 0. Typecast updatedUserData to GuestDTO
+            GuestDTO newGuestData = (GuestDTO) updatedUserData;
+
+            // 1. Save Previous Values to a temporary GuestDTO
+            GuestDTO oldGuestData = (GuestDTO) getOneUserById(CustomerType.CUSTOMER, id);
+
+            // 2. update values from the updated GuestDTO
+            try {
+                if(dbct != null) {
+
+                    dbct.setAutoCommit(false);
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    // 2.1 set fields
+
+                    // 2.1.0 set search params to the product id
+                    prepStmt.setInt(7, id);
+
+                    // 2.1.1 set params
+
+                    // set email
+                    if(!newGuestData.getEmail().equals(""))
+                        prepStmt.setString(1, newGuestData.getEmail());
+                    else
+                        prepStmt.setString(1, oldGuestData.getEmail());
+
+                    // set firstName
+                    if(!newGuestData.getFirstName().equals(""))
+                        prepStmt.setString(2, newGuestData.getFirstName());
+                    else
+                        prepStmt.setString(2, oldGuestData.getFirstName());
+
+                    // set lastName
+                    if(!newGuestData.getLastName().equals(""))
+                        prepStmt.setString(3, newGuestData.getLastName());
+                    else
+                        prepStmt.setString(3, oldGuestData.getLastName());
+
+                    // set addressLine1
+                    if(!newGuestData.getAddressLine1().equals(""))
+                        prepStmt.setString(4, newGuestData.getAddressLine1());
+                    else
+                        prepStmt.setString(4, oldGuestData.getAddressLine1());
+
+                    // set addressLine2
+                    if(!newGuestData.getAddressLine2().equals(""))
+                        prepStmt.setString(5, newGuestData.getAddressLine2());
+                    else
+                        prepStmt.setString(5, oldGuestData.getAddressLine2());
+
+                    // set ccNO
+                    if(!newGuestData.getCcNo().getCcNo().equals(""))
+                        prepStmt.setString(6, newGuestData.getCcNo().getCcNo());
+                    else
+                        prepStmt.setString(6, oldGuestData.getCcNo().getCcNo());
+
+                    // 2.1.2 save to db and return successful operation
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product updated!");
+
+                } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+
+        } catch(SQLException sqlExc) {
+            try {
+                dbct.rollback();
+                System.err.println("Something went wrong when adding file to database.");
+                System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+            } catch(SQLException rbExc) {
+                System.err.println("Something went wrong when rolling back changes.");
+                System.err.println("["+rbExc.getErrorCode()+"]: " + rbExc.getMessage());
+            }
+        }
+
+        }
+        if(updatedUserData instanceof AdminDTO) {
+            String setQuery = queryBuilder(CustomerType.ADMIN, UserDAOQueryStore.PATCH_USER);
+
+            // 0. Typecast updatedUserData to AdminDTO
+            AdminDTO newAdminData = (AdminDTO) updatedUserData;
+
+            // 1. Save Previous Values to a temporary AdminDTO
+            AdminDTO oldAdminData = (AdminDTO) getOneUserById(CustomerType.ADMIN, id);
+
+            // 2. update values from the updated AdminDTO
+            try {
+                if(dbct != null) {
+
+                    dbct.setAutoCommit(false);
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    // 2.1 set fields
+
+                    // 2.1.0 set search params to the product id
+                    prepStmt.setInt(3, id);
+
+                    // 2.1.1 set params
+
+                    // set username
+                    if(!newAdminData.getUsername().equals(""))
+                        prepStmt.setString(1, newAdminData.getUsername());
+                    else
+                        prepStmt.setString(1, oldAdminData.getUsername());
+
+                    // set password
+                    if(!newAdminData.getPassword().equals(""))
+                        prepStmt.setString(2, Security.encrypt(newAdminData.getPassword()));
+                    else
+                        prepStmt.setString(2, Security.encrypt(oldAdminData.getPassword()));
+
+                    // 2.1.2 save to db and return successful operation
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product updated!");
+
+                } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+
+        } catch(SQLException sqlExc) {
+            try {
+                dbct.rollback();
+                System.err.println("Something went wrong when adding file to database.");
+                System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+            } catch(SQLException rbExc) {
+                System.err.println("Something went wrong when rolling back changes.");
+                System.err.println("["+rbExc.getErrorCode()+"]: " + rbExc.getMessage());
+            }
+        }
+
+        }
 
     }
+
+    /*
+             _        _        _                            _    _                 _
+            | |      | |      | |                          | |  | |               | |
+          __| |  ___ | |  ___ | |_   ___   _ __ ___    ___ | |_ | |__    ___    __| | ___
+         / _` | / _ \| | / _ \| __| / _ \ | '_ ` _ \  / _ \| __|| '_ \  / _ \  / _` |/ __|
+        | (_| ||  __/| ||  __/| |_ |  __/ | | | | | ||  __/| |_ | | | || (_) || (_| |\__ \
+        \__,_| \___||_| \___| \__| \___| |_| |_| |_| \___| \__||_| |_| \___/  \__,_||___/
+     */
+
+    /**
+     * deletes a user with a user id.
+     * @param userType what type of user to delete
+     * @param id user id
+     */
+    public void deleteProduct(CustomerType userType, int id) {
+
+        ResultSet dbUser = getUserResultSetById(userType, id);
+        String setQuery = queryBuilder(userType, UserDAOQueryStore.DELETE_USER);
+
+        try {
+            if (dbct != null) {
+
+                dbct.setAutoCommit(false);
+
+                if (dbUser.next()) {
+                    PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                    prepStmt.setInt(1, id);
+
+                    prepStmt.executeUpdate();
+                    dbct.commit();
+                    System.out.println("Product Successfully Deleted!");
+
+                } else {
+                    dbct.rollback();
+                    System.out.println("User doesn't exist.");
+                }
+
+            } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+        } catch (SQLException sqlExc) {
+            try {
+                dbct.rollback();
+                System.err.println("Something went wrong when adding file to database.");
+                System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
+            } catch (SQLException rbExc) {
+                System.err.println("Something went wrong when rolling back changes.");
+                System.err.println("[" + rbExc.getErrorCode() + "]: " + rbExc.getMessage());
+            }
+        }
+
+        }
 
     @Override
     public <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs) {

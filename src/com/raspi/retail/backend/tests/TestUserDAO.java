@@ -134,9 +134,9 @@ public class TestUserDAO {
 
     @Test
     public void testGetOneCustomer() {
-        MemberDTO foundMember = (MemberDTO) uDAO.getOneUser(CustomerType.CUSTOMER, 1);
-        AdminDTO foundAdmin = (AdminDTO) uDAO.getOneUser(CustomerType.ADMIN, 1);
-        GuestDTO foundGuest = (GuestDTO) uDAO.getOneUser(CustomerType.GUEST, 1);
+        MemberDTO foundMember = (MemberDTO) uDAO.getOneUserById(CustomerType.CUSTOMER, 1);
+        AdminDTO foundAdmin = (AdminDTO) uDAO.getOneUserById(CustomerType.ADMIN, 1);
+        GuestDTO foundGuest = (GuestDTO) uDAO.getOneUserById(CustomerType.GUEST, 1);
 
         System.out.println("\n\n");
 

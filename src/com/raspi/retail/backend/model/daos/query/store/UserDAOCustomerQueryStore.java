@@ -8,7 +8,8 @@ public enum UserDAOCustomerQueryStore {
     POST_NEW_USER("INSERT INTO `RasPiRetail_Customers` " +
             "SET `username`=?, `password`=?, `email`=?, `firstName`=?, `lastName`=?, `addressLine1`=?, `addressLine2`=?, `ccNo`=?"),
     PATCH_USER("UPDATE `RasPiRetail_Customers` " +
-            "SET `username`=?, `password`=?, `email`=?, `firstName`=?, `lastName`=?, `addressLine1`=?, `addressLine2`=?, `ccNo`=?"),
+            "SET `username`=?, `password`=?, `email`=?, `firstName`=?, `lastName`=?, `addressLine1`=?, `addressLine2`=?, `ccNo`=?" +
+            "WHERE `id`=?"),
     DELETE_USER("DELETE FROM `RasPiRetail_Customers` WHERE `id`=?");
 
     private String query;

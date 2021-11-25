@@ -7,7 +7,8 @@ public enum UserDAOGuestQueryStore {
     POST_NEW_USER("INSERT INTO `RasPiRetail_Guests` " +
             "SET `email`=?, `firstName`=?, `lastName`=?, `addressLine1`=?, `addressLine2`=?, `ccNo`=?"),
     PATCH_USER("UPDATE `RasPiRetail_Guests` " +
-            "SET `email`=?, `firstName`=?, `lastName`=?, `addressLine1`=?, `addressLine2`=?, `ccNo`=?"),
+            "SET `email`=?, `firstName`=?, `lastName`=?, `addressLine1`=?, `addressLine2`=?, `ccNo`=?" +
+            "WHERE `id`=?"),
     DELETE_USER("DELETE FROM `RasPiRetail_Guests` WHERE `id`=?");
 
     private String query;
