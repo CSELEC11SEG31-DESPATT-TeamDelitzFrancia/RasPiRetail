@@ -22,6 +22,12 @@ public class DTOFactory extends ModelFactory {
         prototypeStore.put("guest", new GuestDTO());
     }
 
+    /**
+     * Creates a DTO Factory.
+     *
+     * @param type ("product"|"admin"|"customer"|"guest") what prototype of dto is preferred.
+     * @return DTO of that prototype. (Must be typecasted)
+     */
     @Override
     public DTO createDTOPrototype(String type) {
         try {

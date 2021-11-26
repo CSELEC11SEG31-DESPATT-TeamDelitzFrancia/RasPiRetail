@@ -20,6 +20,12 @@ public class DAOFactory extends ModelFactory {
         prototypeStore.put("user", UserDAO.getDAOInstance());
     }
 
+    /**
+     * Creates a DAO Factory.
+     *
+     * @param type ("product"|"cart"|"user") what prototype of dao is preferred.
+     * @return DAO of that prototype. (must be typecasted).
+     */
     @Override
     public DAO createDAOPrototype(String type) {
         try {
