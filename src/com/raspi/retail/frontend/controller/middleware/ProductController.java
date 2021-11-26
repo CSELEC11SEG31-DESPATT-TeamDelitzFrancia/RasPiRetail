@@ -4,6 +4,7 @@ import com.raspi.retail.backend.model.ModelFactory;
 import com.raspi.retail.backend.model.ModelFactoryProducer;
 import com.raspi.retail.backend.model.daos.ProductDAO;
 import com.raspi.retail.backend.model.dtos.ProductDTO;
+import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.view.display.ProductDisplay;
 
 import java.util.ArrayList;
@@ -37,26 +38,57 @@ public class ProductController implements Facade {
         ProductDisplay.displayProducts(foundProducts);
     }
 
-    @Override
     public void createOne() {
-        // TODO: user input of creating a new product
-//     e.g.   productname = product.getName();
-//        pDao.addProduct();
+        String prodName;
+        int stock;
+        double price;
+        String productType;
+        String description;
+        String urlListing;
 
+        System.out.println("\nEnter the following details to CREATE a product: ");
+
+        product.setName(KBInput.readString("Product Name: "));
+        product.setStock(KBInput.readInt("Stock: "));
+        product.setPrice(KBInput.readDouble("Price: "));
+        product.setProductType(KBInput.readString("Product Type: "));
+        product.setDescription(KBInput.readString("Description: "));
+        product.setUrlListing(KBInput.readString("URL Listing: "));
+
+        pDao.addProduct(product);
+    }
+
+    public void updateOne(int id) {
+        String prodName;
+        int stock;
+        double price;
+        String productType;
+        String description;
+        String urlListing;
+
+        System.out.println("\nEnter the following details to UPDATE a product: ");
+
+        product.setName(KBInput.readString("Product Name: "));
+        product.setStock(KBInput.readInt("Stock: "));
+        product.setPrice(KBInput.readDouble("Price: "));
+        product.setProductType(KBInput.readString("Product Type: "));
+        product.setDescription(KBInput.readString("Description: "));
+        product.setUrlListing(KBInput.readString("URL Listing: "));
+
+        pDao.updateProduct(id, product);
+    }
+
+    public void deleteOne(int id) {
+        pDao.deleteProduct(id);
     }
 
     @Override
     public void updateOne() {
-        // TODO: user input of updating a new product
-        // e.g. newproduct = product.getName();
-        // pDao.updateProduct();
 
     }
 
     @Override
     public void deleteOne() {
-        // TODO: user input of deleting a product
-        // e.g. selectedid
-//        pDao.deleteProduct(selectedid);
+
     }
 }

@@ -23,29 +23,25 @@ public class AdminMenu {
         username = KBInput.readString("Username: ");
         password = KBInput.readString("Password: ");
 
-        if(username.equals("admin") && password.equals("password1")){ //TODO: link the username and password variables to SQL query in util.SqlQueries
+        if(username.equals("admin") && password.equals("password1")){
             String adminFuncChoice;
             AdminPrompt.printAdminFunctions();
             adminFuncChoice = KBInput.readString("Your choice: ");
 
             while (repeat == "y"){
                 switch (adminFuncChoice.toLowerCase()) {
-                    case "u":
+                    case "u": //update product
                         int itemUpdateId = KBInput.readInt("Enter the ID of the item you'd like to UPDATE: ");
-                        //ProductDAO.updateProduct(itemUpdateId, );
-                        //TODO: call method to search for the ID of a product to UPDATE
+                        productControllerMethods.updateOne(itemUpdateId);
                         break;
 
-                    case "a":
-
-                        //ProductDAO.addProduct();
-                        //TODO: call method to ADD product to DB
+                    case "a": //add product
+                        productControllerMethods.createOne();
                         break;
 
-                    case "d":
+                    case "d": //delete product
                         int itemDeleteId = KBInput.readInt("Enter the ID of the item you'd like to DELETE: ");
-                        //ProductDAO.deleteProduct(itemDeleteId);
-                        //TODO: call method to search for the ID of a product to DELETE
+                        productControllerMethods.deleteOne(itemDeleteId);
                         break;
 
                     case "vp": //view products
@@ -56,25 +52,21 @@ public class AdminMenu {
                             switch (prodSearchChoice.toLowerCase()){
                                 case "va": //View ALL Products
                                     productControllerMethods.viewAll();
-                                    //TODO: call method to display all products
                                     break;
 
                                 case "id": //Search for product by ID
                                     int searchID = KBInput.readInt("Enter the ID of the product: ");
                                     productControllerMethods.viewOneById(searchID);
-                                    //TODO: call method to display a product by ID
                                     break;
 
                                 case "pn": //Search for product by NAME
                                     String searchName = KBInput.readString("Enter the name of the product: ");
                                     productControllerMethods.viewOneByName(searchName);
-                                    //TODO: call method to display a product by NAME
                                     break;
 
                                 case "pt": //Search for product by TYPE
                                     String searchType = KBInput.readString("Enter the type of product: ");
                                     productControllerMethods.viewOneByType(searchType);
-                                    //TODO: call method to display a product by TYPE
                                     break;
 
                                 case "xs": //Stop searching

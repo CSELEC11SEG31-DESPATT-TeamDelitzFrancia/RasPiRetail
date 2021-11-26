@@ -1,6 +1,8 @@
 package com.raspi.retail.frontend.controller;
 
+import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 import com.raspi.retail.backend.util.KBInput;
+import com.raspi.retail.frontend.controller.middleware.CartController;
 import com.raspi.retail.frontend.controller.middleware.UserController;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
 import com.raspi.retail.frontend.view.menu.GuestPrompt;
@@ -10,10 +12,15 @@ public class GuestMenu {
 
     private static ProductController productControllerMethods = new ProductController();
     private static UserController userControllerMethods = new UserController();
+    private static CartController cartControllerMethods = new CartController();
 
     public static void index() {
         String guestFuncChoice;
         String repeat = "y";
+
+        String username = KBInput.readString("Enter your temporary username: ");
+
+        int currentMemberId = userControllerMethods.setCurrentMemberID(username);
 
         GuestPrompt.printGuestLoginPrompt();
         GuestPrompt.printGuestFunctions();
@@ -60,11 +67,11 @@ public class GuestMenu {
                     break;
 
                 case "a": //add to cart
-                    //TODO: insert "add to cart" functionality
+                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
                     break;
 
                 case "vc": //view cart
-                    //TODO: insert "view cart" functionality
+                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
                     break;
 
                 case "x": //end program
@@ -72,9 +79,5 @@ public class GuestMenu {
                     break;
             }
         }
-    }
-
-    public static void guestLogin() {
-
     }
 }
