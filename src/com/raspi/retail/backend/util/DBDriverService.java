@@ -140,6 +140,9 @@ public class DBDriverService implements DBConfig {
             else if (sqlExc.getErrorCode() == 1050) { // 1050 -> table exists: Previously Initialised
                 statusCode = 1;
             }
+            else {
+                statusCode = sqlExc.getErrorCode();
+            }
 
         }
 
@@ -165,6 +168,7 @@ public class DBDriverService implements DBConfig {
             System.out.println("SQL Tables Exist! Skipping SQL Initialisation...");
         } else {
             System.out.println("Looks like something went wrong when initialising the SQL Tables...");
+            System.out.println("Error Code " + isSuccessfulInit);
         }
 
     }
