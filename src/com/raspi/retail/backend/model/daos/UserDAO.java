@@ -208,7 +208,7 @@ public class UserDAO implements DAO {
 
                     prepStmt.executeUpdate();
                     dbct.commit();
-                    System.out.println("Product Successfully Added!");
+                    System.out.println("User Successfully Added!");
 
                 } else {
                 System.err.println("Cannot connect to server. Please try again when the SQL server is running.");

@@ -1,7 +1,7 @@
 package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.util.KBInput;
-import com.raspi.retail.frontend.controller.middleware.GuestController;
+import com.raspi.retail.frontend.controller.middleware.UserController;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
 import com.raspi.retail.frontend.view.menu.GuestPrompt;
 import com.raspi.retail.frontend.view.menu.MainPrompt;
@@ -9,7 +9,7 @@ import com.raspi.retail.frontend.view.menu.MainPrompt;
 public class GuestMenu {
 
     private static ProductController productControllerMethods = new ProductController();
-    private static GuestController guestControllerMethods = new GuestController();
+    private static UserController userControllerMethods = new UserController();
 
     public static void index() {
         String guestFuncChoice;
@@ -55,7 +55,7 @@ public class GuestMenu {
                     }
 
                 case "su": //sign up
-                    guestControllerMethods.signUp();
+                    userControllerMethods.signUp();
                     repeat = "n";
                     break;
 

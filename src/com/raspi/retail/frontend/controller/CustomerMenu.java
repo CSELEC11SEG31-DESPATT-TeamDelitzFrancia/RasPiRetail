@@ -1,6 +1,7 @@
 package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.model.LoginQuery;
+import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
 import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.controller.middleware.CartController;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
@@ -24,7 +25,10 @@ public class CustomerMenu {
         String repeat = "y";
         String repeatSearch = "y";
 
-        if(loginQueryMethods.isLoginValid(username, password) == true/*username.equals("1") && password.equals("1")*/){ //TODO: link the username and password variables to SQL query in util.SqlQueries
+        if(loginQueryMethods.isLoginValid(username, password) == true){
+
+            //MemberDTO currentMember =
+
             String customerFuncChoice;
             CustomerPrompt.printCustomerFunctions();
             customerFuncChoice = KBInput.readString("Your choice: ");
@@ -69,7 +73,6 @@ public class CustomerMenu {
 
                     case "a": //add to cart
                         cartControllerMethods.createOne();
-                        //TODO: insert "add to cart" functionality
                         break;
 
                     case "vc": //view cart

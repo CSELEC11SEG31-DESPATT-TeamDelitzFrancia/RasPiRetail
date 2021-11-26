@@ -23,42 +23,52 @@ public class CartController implements Facade {
         CartDisplay.displayUserCart(cart);
     }
 
-    @Override
-    public void createOne() {
-        int userID = 0;
+    public void createOne(int userID, CustomerType userType) {
         int productID = 0;
         int qty = 0;
-        CustomerType userType = null;
 
-        KBInput.readInt("Enter your User ID: ");
-        userID = input.nextInt();
-        KBInput.readInt("Enter your Product ID: ");
-        productID = input.nextInt();
-        KBInput.readInt("Enter the quantity: ");
-        qty = input.nextInt();
-//        KBInput.readInt("Enter your User Type: "); //TODO: error when scanning userType
-//        userType = input.nextCustomerType();
+        productID = KBInput.readInt("Enter the Product ID: ");
+        qty = KBInput.readInt("Enter the quantity: ");
 
-        // TODO: user form to add a product
         cDAO.addToCart(userID, productID, qty, userType);
     }
 
-    @Override
-    public void updateOne() {
-        // TODO: user form to update a product
-//        cDAO.updateCartItemQuantity(userID, productID, newQty, userType);
+    public void updateOne(int userID, CustomerType userType) {
+        int productID = 0;
+        int newQty = 0;
+
+        productID = KBInput.readInt("Enter the Product ID to update: ");
+        newQty = KBInput.readInt("Enter the new quantity: ");
+
+        cDAO.updateCartItemQuantity(userID, productID, newQty, userType);
     }
 
-    @Override
-    public void deleteOne() {
-        // TODO: delete cart item
-//        cDAO.removeFromCart(userID, productID, userType);
+    public void deleteOne(int userID, CustomerType userType) {
+        int productID = 0;
+
+        productID = KBInput.readInt("Enter the Product ID to delete: ");
+        cDAO.removeFromCart(userID, productID, userType);
     }
 
 
     // unused
     @Override
     public void viewAll() {
+
+    }
+
+    @Override
+    public void createOne() {
+
+    }
+
+    @Override
+    public void updateOne() {
+
+    }
+
+    @Override
+    public void deleteOne() {
 
     }
 }
