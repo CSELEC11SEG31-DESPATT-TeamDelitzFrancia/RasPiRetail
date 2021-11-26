@@ -33,20 +33,20 @@ public class GuestMenu {
                                 break;
 
                             case "id": //Search for product by ID
-                                String searchID = KBInput.readString("Enter the ID of the product: ");
-                                //ProductDAO.getProductById(searchID);
+                                int searchID = KBInput.readInt("Enter the ID of the product: ");
+                                productControllerMethods.viewOneById(searchID);
                                 //TODO: call method to display a product by ID
                                 break;
 
                             case "pn": //Search for product by NAME
                                 String searchName = KBInput.readString("Enter the name of the product: ");
-                                //ProductDAO.getProductByName(searchName);
+                                productControllerMethods.viewOneByName(searchName);
                                 //TODO: call method to display a product by NAME
                                 break;
 
                             case "pt": //Search for product by TYPE
                                 String searchType = KBInput.readString("Enter the type of product: ");
-                                //ProductDAO.getProductByType(searchType);
+                                productControllerMethods.viewOneByType(searchType);
                                 //TODO: call method to display a product by TYPE
                                 break;
 
