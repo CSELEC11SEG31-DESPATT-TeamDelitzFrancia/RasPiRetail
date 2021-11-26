@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class TestProductDAO {
+public class TestProductControllerDAO {
 
     ModelFactory dtoF = ModelFactoryProducer.createFactory("dto");
     ModelFactory daoF = ModelFactoryProducer.createFactory("dao");
@@ -20,7 +20,7 @@ public class TestProductDAO {
     ProductDTO foundProduct = (ProductDTO) dtoF.createDTOPrototype("product");
 
 
-    public TestProductDAO() {
+    public TestProductControllerDAO() {
         testProduct.setName("Test Product");
         testProduct.setStock(100);
         testProduct.setPrice(25.00);

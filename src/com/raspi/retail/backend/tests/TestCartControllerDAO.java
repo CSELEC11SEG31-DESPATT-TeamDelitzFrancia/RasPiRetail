@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class TestCartDAO {
+public class TestCartControllerDAO {
 
     ModelFactory daoF = ModelFactoryProducer.createFactory("dao");
     CartDAO cDAO = (CartDAO) daoF.createDAOPrototype("cart");

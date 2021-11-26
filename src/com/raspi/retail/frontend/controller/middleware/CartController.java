@@ -9,7 +9,7 @@ import com.raspi.retail.frontend.view.display.CartDisplay;
 
 import java.util.ArrayList;
 
-public class Cart implements Facade {
+public class CartController implements Facade {
 
     ModelFactory daoFactory = ModelFactoryProducer.createFactory("dao");
     CartDAO cDAO = (CartDAO) daoFactory.createDAOPrototype("cart");

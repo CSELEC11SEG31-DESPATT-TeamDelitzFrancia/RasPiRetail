@@ -8,7 +8,7 @@ import com.raspi.retail.frontend.view.display.ProductDisplay;
 
 import java.util.ArrayList;
 
-public class Product implements Facade {
+public class ProductController implements Facade {
 
     ModelFactory daoFactory = ModelFactoryProducer.createFactory("dao");
     ModelFactory dtoFactory = ModelFactoryProducer.createFactory("dto");

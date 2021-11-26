@@ -1,13 +1,13 @@
 package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.util.KBInput;
-import com.raspi.retail.frontend.controller.middleware.Product;
+import com.raspi.retail.frontend.controller.middleware.ProductController;
 import com.raspi.retail.frontend.view.menu.GuestPrompt;
 import com.raspi.retail.frontend.view.menu.MainPrompt;
 
 public class GuestMenu {
 
-    private static Product productMethods = new Product();
+    private static ProductController productControllerMethods = new ProductController();
 
     public static void index() {
         String guestFuncChoice;
@@ -29,7 +29,7 @@ public class GuestMenu {
                             case "va": //View ALL Products
                                 //ProductDAO.getAllProducts();
                                 //TODO: call method to display all products
-                                productMethods.viewAll();
+                                productControllerMethods.viewAll();
                                 break;
 
                             case "id": //Search for product by ID
