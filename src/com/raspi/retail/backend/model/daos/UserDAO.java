@@ -139,7 +139,6 @@ public class UserDAO implements DAO {
         return null;
     }
 
-
     /**
      * method to get a single user by id.
      *
@@ -171,6 +170,36 @@ public class UserDAO implements DAO {
         }
 
         return user;
+    }
+
+    /**
+     * method to get a single user by searching username
+     *
+     * @param userType what type of user it will recieve
+     * @param usernameQuery user name
+     * @return UserDTO of that user
+     */
+    public UserDTO getOneUserByUsername(CustomerType userType, int usernameQuery) {
+        UserDTO foundUser = null;
+        ResultSet dbUser = null;
+        String setQuery = queryBuilder(userType, UserDAOQueryStore.GET_USER_BY_USERNAME);
+
+        try {
+            if(dbct != null) {
+                PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                prepStmt.setString(1, ".*"+usernameQuery+".*");
+                dbUser = prepStmt.executeQuery();
+                foundUser = convertResultSetRecordToDTO(userType, dbUser);
+
+            } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+        } catch(SQLException sqlExc) {
+            System.err.println("Something went wrong with retrieving data from DB.");
+            System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+        }
+        return foundUser;
     }
 
     /*
