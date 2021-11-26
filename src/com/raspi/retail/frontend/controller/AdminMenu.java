@@ -94,15 +94,4 @@ public class AdminMenu {
         }
     }
 
-    public static boolean login() {
-        while(true) {
-        //TODO implementation
-        //if (LoginUtils.LoginChecker(username, password) == true) {
-            index();
-        //} else {
-           // break;
-        //}
-        }
-    }
-
 }
