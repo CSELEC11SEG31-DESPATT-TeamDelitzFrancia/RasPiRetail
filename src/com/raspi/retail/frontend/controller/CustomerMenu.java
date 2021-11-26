@@ -2,9 +2,11 @@ package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.model.LoginQuery;
 import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
+import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.controller.middleware.CartController;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
+import com.raspi.retail.frontend.controller.middleware.UserController;
 import com.raspi.retail.frontend.view.menu.CustomerPrompt;
 import com.raspi.retail.frontend.view.menu.MainPrompt;
 
@@ -13,6 +15,7 @@ public class CustomerMenu {
     private static ProductController productControllerMethods = new ProductController();
     private static CartController cartControllerMethods = new CartController();
     private static LoginQuery loginQueryMethods = new LoginQuery();
+    private static UserController userControllerMethods = new UserController();
 
     public static void index() {
         String username;
@@ -27,7 +30,7 @@ public class CustomerMenu {
 
         if(loginQueryMethods.isLoginValid(username, password) == true){
 
-            //MemberDTO currentMember =
+           int currentMemberId = userControllerMethods.setCurrentMemberID(username);
 
             String customerFuncChoice;
             CustomerPrompt.printCustomerFunctions();
@@ -72,12 +75,11 @@ public class CustomerMenu {
                         }
 
                     case "a": //add to cart
-                        cartControllerMethods.createOne();
+                        cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
                         break;
 
                     case "vc": //view cart
-                        cartControllerMethods.viewAll();
-                        //TODO: insert "view cart" functionality
+                        cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
                         break;
 
                     case "x": //end program
@@ -87,17 +89,6 @@ public class CustomerMenu {
             }
         } else {
             System.out.println("ERROR: Incorrect username or password!");
-        }
-    }
-
-    public static boolean login() {
-        while (true) {
-            //TODO implementation
-//            if (isLogin == true) {
-//
-//            } else {
-//            break;
-//            }
         }
     }
 }

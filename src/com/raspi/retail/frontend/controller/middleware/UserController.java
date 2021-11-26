@@ -7,6 +7,7 @@ import com.raspi.retail.backend.model.daos.UserDAO;
 import com.raspi.retail.backend.model.dtos.CreditCard;
 import com.raspi.retail.backend.model.dtos.customer.GuestDTO;
 import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
+import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 import com.raspi.retail.backend.model.factory.DAOFactory;
 import com.raspi.retail.backend.model.factory.DTOFactory;
 import com.raspi.retail.backend.util.KBInput;
@@ -46,5 +47,10 @@ public class UserController {
         uDao.addUser(member);
     }
 
-    //public void
+    public int setCurrentMemberID(String username){
+
+        MemberDTO currentSessionMember = (MemberDTO) uDao.getOneUserByUsername(CustomerType.CUSTOMER, username);
+
+        return currentSessionMember.getId();
+    }
 }

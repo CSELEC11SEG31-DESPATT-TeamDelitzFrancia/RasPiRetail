@@ -179,7 +179,7 @@ public class UserDAO implements DAO {
      * @param usernameQuery user name
      * @return UserDTO of that user
      */
-    public UserDTO getOneUserByUsername(CustomerType userType, int usernameQuery) {
+    public UserDTO getOneUserByUsername(CustomerType userType, String usernameQuery) {
         UserDTO foundUser = null;
         ResultSet dbUser = null;
         String setQuery = queryBuilder(userType, UserDAOQueryStore.GET_USER_BY_USERNAME);

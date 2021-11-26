@@ -37,6 +37,7 @@ public class AdminMenu {
                         break;
 
                     case "a":
+
                         //ProductDAO.addProduct();
                         //TODO: call method to ADD product to DB
                         break;
@@ -82,13 +83,11 @@ public class AdminMenu {
                             }
                             break;
                         }
-
                     case "x": //terminates program
                         repeat = "n";
                         break;
                 }
             }
-
         } else {
             System.out.println("ERROR: Incorrect username or password!");
         }
