@@ -35,11 +35,24 @@ public class CustomerMenu {
             CustomerPrompt.printCustomerFunctions();
             customerFuncChoice = KBInput.readString("Your choice: ");
 
-//            while (repeat =="y"){
-//                if(customerFuncChoice.equalsIgnoreCase("vp")){
-//
-//                }
-//            }
+            while (repeat =="y"){
+                if(customerFuncChoice.equalsIgnoreCase("vp")){
+                    MainPrompt.productSearchOptions();
+                    String prodSearchChoice = KBInput.readString("Your choice: ");
+
+                    while(repeatSearch == "y"){
+                        if(customerFuncChoice.equalsIgnoreCase("vp")){
+                            productControllerMethods.viewAll();
+                        } else if(customerFuncChoice.equalsIgnoreCase("id")){
+                            int searchID = KBInput.readInt("Enter the ID of the product: ");
+                            productControllerMethods.viewOneById(searchID);
+                        } else if(customerFuncChoice.equalsIgnoreCase("pn")){
+                            String searchName = KBInput.readString("Enter the name of the product: ");
+                            productControllerMethods.viewOneByName(searchName);
+                        }
+                    }
+                }
+            }
 
 
 
