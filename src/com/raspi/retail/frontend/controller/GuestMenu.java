@@ -36,7 +36,6 @@ public class GuestMenu {
                 guestFuncChoice = KBInput.readString("Your choice: ");
 
                 String repeatInnerMenu = "y";
-4832776930856100
 //                while(repeatInnerMenu == "y"){
                     if(guestFuncChoice.equalsIgnoreCase("vp")){
 
