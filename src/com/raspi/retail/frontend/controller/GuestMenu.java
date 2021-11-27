@@ -34,6 +34,7 @@ public class GuestMenu {
                 GuestPrompt.printGuestFunctions();
                 guestFuncChoice = KBInput.readString("Your choice: ");
 
+<<<<<<< HEAD
                 if(guestFuncChoice.equalsIgnoreCase("vp")){
 
                     while (true) {
@@ -54,6 +55,30 @@ public class GuestMenu {
                             break;
                         } else if(!prodSearchChoice.equalsIgnoreCase("va") || !prodSearchChoice.equalsIgnoreCase("id") || !prodSearchChoice.equalsIgnoreCase("pn") || !prodSearchChoice.equalsIgnoreCase("pt") || !prodSearchChoice.equalsIgnoreCase("xs")){
                             System.out.println(">>Invalid Entry<<");
+=======
+                    if(guestFuncChoice.equalsIgnoreCase("vp")){
+
+                        while (true) {
+                            MainPrompt.productSearchOptions();
+                            String prodSearchChoice = KBInput.readString("Your choice: ");
+                            String repeatSearch = "y";
+                            if(prodSearchChoice.equalsIgnoreCase("va")){
+                                productControllerMethods.viewAll();
+                            } else if(prodSearchChoice.equalsIgnoreCase("id")){
+                                int searchID = KBInput.readInt("Enter the ID of the product: ");
+                                productControllerMethods.viewOneById(searchID);
+                            } else if(prodSearchChoice.equalsIgnoreCase("pn")){
+                                String searchName = KBInput.readString("Enter the name of the product: ");
+                                productControllerMethods.viewOneByName(searchName);
+                            } else if(prodSearchChoice.equalsIgnoreCase("pt")){
+                                String searchType = KBInput.readString("Enter the type of product: ");
+                                productControllerMethods.viewOneByType(searchType);
+                            } else if(prodSearchChoice.equalsIgnoreCase("c")){
+                                break;
+                            } else if(!prodSearchChoice.equalsIgnoreCase("va") || !prodSearchChoice.equalsIgnoreCase("id") || !prodSearchChoice.equalsIgnoreCase("pn") || !prodSearchChoice.equalsIgnoreCase("pt") || !prodSearchChoice.equalsIgnoreCase("xs")){
+                                System.out.println(">>Invalid Entry<<");
+                            }
+>>>>>>> 163ab96a5c2c8156026b7e69680a15083d8bb8f0
                         }
                     }
 
