@@ -18,68 +18,73 @@ public class GuestMenu {
         String guestFuncChoice;
         String repeat = "y";
 
-        String username = KBInput.readString("Enter your temporary username: "); //TODO: added a tempUser, incorrect?
+        GuestPrompt.printGuestLoginOptions();
+        String guestLoginChoice = KBInput.readString("Your choice: ");
 
-        int currentMemberId = userControllerMethods.setCurrentMemberID(username);
+        if (guestLoginChoice.equalsIgnoreCase("OT")) {
 
-        GuestPrompt.printGuestLoginPrompt();
-        GuestPrompt.printGuestFunctions();
-        guestFuncChoice = KBInput.readString("Your choice: ");
+            String GuestEmail = KBInput.readString("Enter your email to continue as GUEST: ");
 
-        while (repeat == "y"){
-            switch (guestFuncChoice.toLowerCase()) {
+            userControllerMethods.signUpAsGuest(GuestEmail);
 
-                case "su": //sign up
-                    userControllerMethods.signUp(); //TODO: Add repeat = "n" to necessary methods
-                    repeat = "n";
-                    break;
+            int currentGuestId = userControllerMethods.setCurrentGuestID(GuestEmail);
 
-                case "a": //add to cart
-                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
-                    break;
+            GuestPrompt.printGuestLoginPrompt();
+            GuestPrompt.printGuestFunctions();
+            guestFuncChoice = KBInput.readString("Your choice: ");
 
-                case "vc": //view cart
-                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
-                    break;
+            while (repeat == "y") {
+                switch (guestFuncChoice.toLowerCase()) {
+                    case "vp": //view products
+                        MainPrompt.productSearchOptions();
+                        String prodSearchChoice = KBInput.readString("Your choice: ");
+                        String repeatSearch = "y";
 
-                case "x": //end program
-                    repeat = "n";
-                    break;
+                        while (repeatSearch == "y") {
+                            switch (prodSearchChoice.toLowerCase()) {
+                                case "va": //View ALL Products
+                                    productControllerMethods.viewAll();
+                                    break;
 
-                case "vp": //view products
-                    MainPrompt.productSearchOptions();
-                    String prodSearchChoice = KBInput.readString("Your choice: ");
-                    String repeatSearch = "y";
+                                case "id": //Search for product by ID
+                                    int searchID = KBInput.readInt("Enter the ID of the product: ");
+                                    productControllerMethods.viewOneById(searchID);
+                                    break;
 
-                    while(repeatSearch == "y") {
-                        switch (prodSearchChoice.toLowerCase()) {
-                            case "va": //View ALL Products
-                                productControllerMethods.viewAll();
-                                break;
+                                case "pn": //Search for product by NAME
+                                    String searchName = KBInput.readString("Enter the name of the product: ");
+                                    productControllerMethods.viewOneByName(searchName);
+                                    break;
 
-                            case "id": //Search for product by ID
-                                int searchID = KBInput.readInt("Enter the ID of the product: ");
-                                productControllerMethods.viewOneById(searchID);
-                                break;
+                                case "pt": //Search for product by TYPE
+                                    String searchType = KBInput.readString("Enter the type of product: ");
+                                    productControllerMethods.viewOneByType(searchType);
+                                    break;
 
-                            case "pn": //Search for product by NAME
-                                String searchName = KBInput.readString("Enter the name of the product: ");
-                                productControllerMethods.viewOneByName(searchName);
-                                break;
-
-                            case "pt": //Search for product by TYPE
-                                String searchType = KBInput.readString("Enter the type of product: ");
-                                productControllerMethods.viewOneByType(searchType);
-                                break;
-
-                            case "xs": //Stop searching
-                                repeatSearch = "n";
-                                break;
+                                case "xs": //Stop searching
+                                    repeatSearch = "n";
+                                    break;
+                            }
+                            repeat = "n";
+                            break;
                         }
+                        break;
+
+                    case "a": //add to cart
+                        cartControllerMethods.createOne(currentGuestId, CustomerType.CUSTOMER);
+                        break;
+
+                    case "vc": //view cart
+                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.CUSTOMER);
+                        break;
+
+                    case "x": //end program
                         repeat = "n";
                         break;
-                    }
+                }
             }
+        } else if (guestLoginChoice.equalsIgnoreCase("SU")) {
+            userControllerMethods.signUp(); //Sign up
         }
     }
 }

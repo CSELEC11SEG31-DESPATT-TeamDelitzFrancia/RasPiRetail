@@ -7,10 +7,15 @@ public class GuestPrompt extends MainPrompt{
         System.out.println("===============");
     }
 
+    public static void printGuestLoginOptions(){
+        System.out.println("\nSelect a login method: " +
+                "\n[OT]: One-Time Purchase" +
+                "\n[SU]: Sign Up");
+    }
+
     public static void printGuestFunctions(){
         System.out.println("\nSelect a function:" +
                 "\n[VP]: View Products" +
-                "\n[SU]: Sign Up" +
                 "\n[A]: Add to Cart" +
                 "\n[VC]: View Cart" +
                 "\n[X]: Terminate Program");

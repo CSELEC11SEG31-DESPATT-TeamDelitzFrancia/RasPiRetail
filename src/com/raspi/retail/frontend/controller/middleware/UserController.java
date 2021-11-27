@@ -24,6 +24,7 @@ public class UserController {
 
     private UserDAO uDao = (UserDAO) daoFactory.createDAOPrototype("user");
     private MemberDTO member = (MemberDTO) dtoFactory.createDTOPrototype("customer");
+    private GuestDTO guest = (GuestDTO) dtoFactory.createDTOPrototype("guest");
 
     private static LoginQuery loginQueryMethods = new LoginQuery();
 
@@ -52,5 +53,24 @@ public class UserController {
         MemberDTO currentSessionMember = (MemberDTO) uDao.getOneUserByUsername(CustomerType.CUSTOMER, username);
 
         return currentSessionMember.getId();
+    }
+
+    public void signUpAsGuest(String GuestEmail) {
+
+        guest.setEmail(GuestEmail);
+        guest.setFirstName(KBInput.readString("First Name: "));
+        guest.setLastName(KBInput.readString("Last Name: "));
+        guest.setAddressLine1(KBInput.readString("Address Line 1: "));
+        guest.setAddressLine2(KBInput.readString("Address Line 2 (optional, press ENTER to skip): "));
+        guest.setCcNo(new CreditCard(KBInput.readString("Enter Credit Card No.: ")));
+
+        uDao.addUser(guest);
+    }
+
+    public int setCurrentGuestID(String email){
+
+        GuestDTO currentSessionGuest = (GuestDTO) uDao.getOneUserByUsername(CustomerType.GUEST, email);
+
+        return currentSessionGuest.getId();
     }
 }

@@ -73,6 +73,7 @@ public class CustomerMenu {
                             repeat = "n";
                             break;
                         }
+                        break;
 
                     case "a": //add to cart
                         cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
