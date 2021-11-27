@@ -1,9 +1,12 @@
 package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.util.KBInput;
+import com.raspi.retail.frontend.controller.middleware.UserController;
 import com.raspi.retail.frontend.view.menu.MainPrompt;
 
 public class MainMenu {
+
+    private static UserController userControllerMethods = new UserController();
 
     public static void index() {
         String userChoice;
@@ -25,6 +28,10 @@ public class MainMenu {
 
                 case "g":
                     com.raspi.retail.frontend.controller.GuestMenu.index();
+                    break;
+
+                case "su": //sign up
+                    userControllerMethods.signUp();
                     break;
 
                 case "e":

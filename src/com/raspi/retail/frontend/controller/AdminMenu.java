@@ -33,15 +33,18 @@ public class AdminMenu {
                     case "u": //update product
                         int itemUpdateId = KBInput.readInt("Enter the ID of the item you'd like to UPDATE: ");
                         productControllerMethods.updateOne(itemUpdateId);
+                        repeat = "n";
                         break;
 
                     case "a": //add product
                         productControllerMethods.createOne();
+                        repeat = "n";
                         break;
 
                     case "d": //delete product
                         int itemDeleteId = KBInput.readInt("Enter the ID of the item you'd like to DELETE: ");
                         productControllerMethods.deleteOne(itemDeleteId);
+                        repeat = "n";
                         break;
 
                     case "vp": //view products

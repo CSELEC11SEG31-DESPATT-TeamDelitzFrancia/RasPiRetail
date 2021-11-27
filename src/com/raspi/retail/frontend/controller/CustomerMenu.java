@@ -46,21 +46,25 @@ public class CustomerMenu {
                             switch (prodSearchChoice.toLowerCase()){
                                 case "va": //View ALL Products
                                     productControllerMethods.viewAll();
+                                    repeat = "n";
                                     break;
 
                                 case "id": //Search for product by ID
                                     int searchID = KBInput.readInt("Enter the ID of the product: ");
                                     productControllerMethods.viewOneById(searchID);
+                                    repeat = "n";
                                     break;
 
                                 case "pn": //Search for product by NAME
                                     String searchName = KBInput.readString("Enter the name of the product: ");
                                     productControllerMethods.viewOneByName(searchName);
+                                    repeat = "n";
                                     break;
 
                                 case "pt": //Search for product by TYPE
                                     String searchType = KBInput.readString("Enter the type of product: ");
                                     productControllerMethods.viewOneByType(searchType);
+                                    repeat = "n";
                                     break;
 
                                 case "xs": //Stop searching

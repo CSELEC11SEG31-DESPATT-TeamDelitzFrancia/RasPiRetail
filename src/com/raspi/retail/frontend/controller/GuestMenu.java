@@ -62,7 +62,7 @@ public class GuestMenu {
                     }
 
                 case "su": //sign up
-                    userControllerMethods.signUp();
+                    userControllerMethods.signUp(); //TODO: Add repeat = "n" to necessary methods
                     repeat = "n";
                     break;
 

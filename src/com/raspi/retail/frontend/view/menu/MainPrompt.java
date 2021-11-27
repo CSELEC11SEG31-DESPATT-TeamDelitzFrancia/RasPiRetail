@@ -6,7 +6,7 @@ public class MainPrompt {
 
         public static void welcome() {
         MenuComponents.generateTopSingleLineBar(20);
-        System.out.print("Welcome to RasPi Retail!");
+        System.out.print("Welcome to RasPi Retail!\n");
         MenuComponents.generateTopSingleLineBar(20);
     }
 
@@ -16,6 +16,7 @@ public class MainPrompt {
         System.out.println("    [A]: Admin Login");
         System.out.println("    [C]: Customer Login");
         System.out.println("    [G]: Guest Login");
+        System.out.println("    [SU]: Sign Up");
         System.out.println();
         System.out.println("Type [E] to exit.");
     }
