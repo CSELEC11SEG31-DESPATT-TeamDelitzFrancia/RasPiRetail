@@ -1,10 +1,7 @@
 package com.raspi.retail.frontend.controller;
 
-import com.raspi.retail.backend.model.daos.ProductDAO;
-import com.raspi.retail.backend.model.factory.DAOFactory;
 import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
-import com.raspi.retail.frontend.view.display.ProductDisplay;
 import com.raspi.retail.frontend.view.menu.AdminPrompt;
 import com.raspi.retail.frontend.view.menu.MainPrompt;
 
@@ -23,31 +20,31 @@ public class AdminMenu {
         username = KBInput.readString("Username: ");
         password = KBInput.readString("Password: ");
 
-        if(username.equals("admin") && password.equals("password1")){
+        if(username.equals("admin") && password.equals("password1")){ //TODO: fix - static username and password
             String adminFuncChoice;
             AdminPrompt.printAdminFunctions();
             adminFuncChoice = KBInput.readString("Your choice: ");
 
             while (repeat == "y"){
                 switch (adminFuncChoice.toLowerCase()) {
-                    case "u": //update product
+                    case "u": //update product //TODO: fix - sends user back to main menu
                         int itemUpdateId = KBInput.readInt("Enter the ID of the item you'd like to UPDATE: ");
                         productControllerMethods.updateOne(itemUpdateId);
                         repeat = "n";
                         break;
 
-                    case "a": //add product
+                    case "a": //add product //TODO: fix - sends user back to main menu
                         productControllerMethods.createOne();
                         repeat = "n";
                         break;
 
-                    case "d": //delete product
+                    case "d": //delete product //TODO: fix - sends user back to main menu
                         int itemDeleteId = KBInput.readInt("Enter the ID of the item you'd like to DELETE: ");
                         productControllerMethods.deleteOne(itemDeleteId);
                         repeat = "n";
                         break;
 
-                    case "vp": //view products
+                    case "vp": //view products //TODO: fix - all options sends user back to main menu
                         MainPrompt.productSearchOptions();
                         String prodSearchChoice = KBInput.readString("Your choice: ");
 

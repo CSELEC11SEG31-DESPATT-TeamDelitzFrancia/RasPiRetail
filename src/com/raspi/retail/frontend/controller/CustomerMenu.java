@@ -24,9 +24,6 @@ public class CustomerMenu {
         username = KBInput.readString("Username: ");
         password = KBInput.readString("Password: ");
 
-        String repeat = "y";
-        String repeatSearch = "y";
-
         if(loginQueryMethods.isLoginValid(username, password) == true){
 
             int currentMemberId = userControllerMethods.setCurrentMemberID(username);
