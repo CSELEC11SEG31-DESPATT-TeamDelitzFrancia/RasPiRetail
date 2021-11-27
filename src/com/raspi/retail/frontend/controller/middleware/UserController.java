@@ -69,7 +69,7 @@ public class UserController {
 
     public int setCurrentGuestID(String email){
 
-        GuestDTO currentSessionGuest = (GuestDTO) uDao.getOneUserByUsername(CustomerType.GUEST, email);
+        GuestDTO currentSessionGuest = (GuestDTO) uDao.getOneUserByEmail(CustomerType.GUEST, email);
 
         return currentSessionGuest.getId();
     }
