@@ -202,6 +202,37 @@ public class UserDAO implements DAO {
         return foundUser;
     }
 
+        /**
+     * method to get a single user by searching email
+     *
+     * @param userType what type of user it will recieve
+     * @param emailQuery user name
+     * @return UserDTO of that user
+     */
+    public UserDTO getOneUserByEmail(CustomerType userType, String emailQuery) {
+        UserDTO foundUser = null;
+        ResultSet dbUser = null;
+        String setQuery = queryBuilder(userType, UserDAOQueryStore.GET_USER_BY_EMAIL);
+
+        try {
+            if(dbct != null) {
+                PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
+
+                prepStmt.setString(1, ".*"+emailQuery+".*");
+                dbUser = prepStmt.executeQuery();
+                foundUser = convertResultSetRecordToDTO(userType, dbUser);
+
+            } else {
+                System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
+            }
+        } catch(SQLException sqlExc) {
+            System.err.println("Something went wrong with retrieving data from DB.");
+            System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
+        }
+        return foundUser;
+    }
+
+
     /*
                              _                      _   _               _
           ___ _ __ ___  __ _| |_ ___ _ __ ___   ___| |_| |__   ___   __| |___
