@@ -35,9 +35,6 @@ public class GuestMenu {
                 GuestPrompt.printGuestFunctions();
                 guestFuncChoice = KBInput.readString("Your choice: ");
 
-                String repeatInnerMenu = "y";
-
-//                while(repeatInnerMenu == "y"){
                     if(guestFuncChoice.equalsIgnoreCase("vp")){
 
                         while (true) {
