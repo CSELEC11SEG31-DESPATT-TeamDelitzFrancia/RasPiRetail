@@ -37,23 +37,24 @@ public class CustomerMenu {
                 customerFuncChoice = KBInput.readString("Your choice: ");
 
                 if(customerFuncChoice.equalsIgnoreCase("vp")){
-                    MainPrompt.productSearchOptions();
-                    String prodSearchChoice = KBInput.readString("Your choice: ");
 
                     while(true){
-                        if(customerFuncChoice.equalsIgnoreCase("va")){
+                        MainPrompt.productSearchOptions();
+                        String prodSearchChoice = KBInput.readString("Your choice: ");
+
+                        if(prodSearchChoice.equalsIgnoreCase("va")){
                             productControllerMethods.viewAll();
-                        } else if(customerFuncChoice.equalsIgnoreCase("id")){
+                        } else if(prodSearchChoice.equalsIgnoreCase("id")){
                             int searchID = KBInput.readInt("Enter the ID of the product: ");
                             productControllerMethods.viewOneById(searchID);
-                        } else if(customerFuncChoice.equalsIgnoreCase("pn")){
+                        } else if(prodSearchChoice.equalsIgnoreCase("pn")){
                             String searchName = KBInput.readString("Enter the name of the product: ");
                             productControllerMethods.viewOneByName(searchName);
-                        } else if(customerFuncChoice.equalsIgnoreCase("pt")){
+                        } else if(prodSearchChoice.equalsIgnoreCase("pt")){
                             String searchType = KBInput.readString("Enter the type of product: ");
                             productControllerMethods.viewOneByType(searchType);
-                        } else if(customerFuncChoice.equalsIgnoreCase("xs")){
-                            repeatSearch = "n";
+                        } else if(prodSearchChoice.equalsIgnoreCase("c")){
+                            break;
                         } else {
                             System.out.println(">>Invalid Entry<<");
                         }

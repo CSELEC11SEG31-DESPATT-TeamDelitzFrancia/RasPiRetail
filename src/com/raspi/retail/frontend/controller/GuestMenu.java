@@ -36,7 +36,7 @@ public class GuestMenu {
                 guestFuncChoice = KBInput.readString("Your choice: ");
 
                 String repeatInnerMenu = "y";
-4832776930856100
+
 //                while(repeatInnerMenu == "y"){
                     if(guestFuncChoice.equalsIgnoreCase("vp")){
 
@@ -55,7 +55,7 @@ public class GuestMenu {
                             } else if(prodSearchChoice.equalsIgnoreCase("pt")){
                                 String searchType = KBInput.readString("Enter the type of product: ");
                                 productControllerMethods.viewOneByType(searchType);
-                            } else if(prodSearchChoice.equalsIgnoreCase("xs")){
+                            } else if(prodSearchChoice.equalsIgnoreCase("c")){
                                 break;
                             } else if(!prodSearchChoice.equalsIgnoreCase("va") || !prodSearchChoice.equalsIgnoreCase("id") || !prodSearchChoice.equalsIgnoreCase("pn") || !prodSearchChoice.equalsIgnoreCase("pt") || !prodSearchChoice.equalsIgnoreCase("xs")){
                                 System.out.println(">>Invalid Entry<<");
