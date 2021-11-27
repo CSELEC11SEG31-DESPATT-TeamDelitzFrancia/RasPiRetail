@@ -1,21 +1,14 @@
 package com.raspi.retail.frontend.controller.middleware;
 
-import com.raspi.retail.backend.model.LoginQuery;
 import com.raspi.retail.backend.model.ModelFactory;
 import com.raspi.retail.backend.model.ModelFactoryProducer;
 import com.raspi.retail.backend.model.daos.UserDAO;
+import com.raspi.retail.backend.model.dtos.AdminDTO;
 import com.raspi.retail.backend.model.dtos.CreditCard;
 import com.raspi.retail.backend.model.dtos.customer.GuestDTO;
 import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
 import com.raspi.retail.backend.model.dtos.enums.CustomerType;
-import com.raspi.retail.backend.model.factory.DAOFactory;
-import com.raspi.retail.backend.model.factory.DTOFactory;
 import com.raspi.retail.backend.util.KBInput;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class UserController {
 
@@ -26,7 +19,20 @@ public class UserController {
     private MemberDTO member = (MemberDTO) dtoFactory.createDTOPrototype("customer");
     private GuestDTO guest = (GuestDTO) dtoFactory.createDTOPrototype("guest");
 
-    private static LoginQuery loginQueryMethods = new LoginQuery();
+    public boolean isLoginValid(CustomerType userType, String username, String password) {
+        if(userType == CustomerType.CUSTOMER) {
+            MemberDTO foundMember = (MemberDTO) uDao.getOneUserByUsername(userType, username);
+            // returns true if username and password are true
+            return foundMember.getUsername().equals(username) && foundMember.getPassword().equals(password);
+        }
+        if(userType == CustomerType.ADMIN) {
+            AdminDTO foundAdmin = (AdminDTO) uDao.getOneUserByUsername(userType, username);
+            // returns true if username and password are true
+            return foundAdmin.getUsername().equals(username) && foundAdmin.getPassword().equals(password);
+        }
+        // if user is null
+        return false;
+    }
 
     public void signUp() {
         String username;

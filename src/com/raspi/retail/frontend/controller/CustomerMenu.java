@@ -1,6 +1,5 @@
 package com.raspi.retail.frontend.controller;
 
-import com.raspi.retail.backend.model.LoginQuery;
 import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.controller.middleware.CartController;
@@ -13,7 +12,6 @@ public class CustomerMenu {
 
     private static ProductController productControllerMethods = new ProductController();
     private static CartController cartControllerMethods = new CartController();
-    private static LoginQuery loginQueryMethods = new LoginQuery();
     private static UserController userControllerMethods = new UserController();
 
     public static void index() {
@@ -24,7 +22,7 @@ public class CustomerMenu {
         username = KBInput.readString("Username: ");
         password = KBInput.readString("Password: ");
 
-        if(loginQueryMethods.isLoginValid(username, password) == true){
+        if(userControllerMethods.isLoginValid(CustomerType.CUSTOMER, username, password)){
 
             int currentMemberId = userControllerMethods.setCurrentMemberID(username);
 
