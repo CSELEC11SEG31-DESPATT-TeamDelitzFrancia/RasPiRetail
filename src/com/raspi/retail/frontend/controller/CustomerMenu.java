@@ -60,9 +60,9 @@ public class CustomerMenu {
 
                     }
                 } else if(customerFuncChoice.equalsIgnoreCase("a")){
-                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
+                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER); //TODO: Infinite loop bug
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
-                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
+                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER); //TODO: Infinite loop bug
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
                     repeat = "n";
                 }

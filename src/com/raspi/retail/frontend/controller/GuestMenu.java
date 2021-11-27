@@ -63,9 +63,9 @@ public class GuestMenu {
                             }
                         }
                     } else if(guestFuncChoice.equalsIgnoreCase("a")){
-                        cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST);
+                        cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST); //TODO: Infinite loop bug
                     } else if(guestFuncChoice.equalsIgnoreCase("vc")){
-                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST);
+                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST); //TODO: Infinite loop bug
                     } else if(guestFuncChoice.equalsIgnoreCase("x")){
                         repeat = "n";
                     } else if(!guestFuncChoice.equalsIgnoreCase("vp") || !guestFuncChoice.equalsIgnoreCase("a") || !guestFuncChoice.equalsIgnoreCase("vc") || !guestFuncChoice.equalsIgnoreCase("x")){
