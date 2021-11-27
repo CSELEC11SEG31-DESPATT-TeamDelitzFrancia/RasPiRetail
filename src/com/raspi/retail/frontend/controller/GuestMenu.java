@@ -71,11 +71,11 @@ public class GuestMenu {
                         break;
 
                     case "a": //add to cart
-                        cartControllerMethods.createOne(currentGuestId, CustomerType.CUSTOMER);
+                        cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST);
                         break;
 
                     case "vc": //view cart
-                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.CUSTOMER);
+                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST);
                         break;
 
                     case "x": //end program
