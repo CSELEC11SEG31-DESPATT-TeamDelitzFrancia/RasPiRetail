@@ -35,6 +35,17 @@ public class CustomerMenu {
             CustomerPrompt.printCustomerFunctions();
             customerFuncChoice = KBInput.readString("Your choice: ");
 
+//            while (repeat =="y"){
+//                if(customerFuncChoice.equalsIgnoreCase("vp")){
+//
+//                }
+//            }
+
+
+
+
+
+
             while (repeat == "y"){
                 switch (customerFuncChoice.toLowerCase()) {
                     case "vp": //view products
