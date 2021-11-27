@@ -31,16 +31,16 @@ public class CustomerMenu {
 
             int currentMemberId = userControllerMethods.setCurrentMemberID(username);
 
-            String customerFuncChoice;
-            CustomerPrompt.printCustomerFunctions();
-            customerFuncChoice = KBInput.readString("Your choice: ");
+            while (true){
+                String customerFuncChoice;
+                CustomerPrompt.printCustomerFunctions();
+                customerFuncChoice = KBInput.readString("Your choice: ");
 
-            while (repeat =="y"){
                 if(customerFuncChoice.equalsIgnoreCase("vp")){
                     MainPrompt.productSearchOptions();
                     String prodSearchChoice = KBInput.readString("Your choice: ");
 
-                    while(repeatSearch == "y"){
+                    while(true){
                         if(customerFuncChoice.equalsIgnoreCase("va")){
                             productControllerMethods.viewAll();
                         } else if(customerFuncChoice.equalsIgnoreCase("id")){
@@ -60,11 +60,11 @@ public class CustomerMenu {
 
                     }
                 } else if(customerFuncChoice.equalsIgnoreCase("a")){
-                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER); //TODO: Infinite loop bug
+                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
-                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER); //TODO: Infinite loop bug
+                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
-                    repeat = "n";
+                    break;
                 }
             }
         } else {

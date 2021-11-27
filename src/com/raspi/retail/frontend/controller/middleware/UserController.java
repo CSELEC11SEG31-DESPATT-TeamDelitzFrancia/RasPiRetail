@@ -43,7 +43,16 @@ public class UserController {
         member.setLastName(KBInput.readString("Last Name: "));
         member.setAddressLine1(KBInput.readString("Address Line 1: "));
         member.setAddressLine2(KBInput.readString("Address Line 2 (optional, press ENTER to skip): "));
-        member.setCcNo(new CreditCard(KBInput.readString("Enter Credit Card No.: ")));
+        while(true) {
+            String ccNo = KBInput.readString("Enter Credit Card No.: ");
+            CreditCard creditCard = new CreditCard(ccNo);
+            if(creditCard == null) {
+                System.out.println("Invalid Credit Card!");
+            } else {
+                member.setCcNo(creditCard);
+                break;
+            }
+        }
 
         uDao.addUser(member);
     }
@@ -62,7 +71,16 @@ public class UserController {
         guest.setLastName(KBInput.readString("Last Name: "));
         guest.setAddressLine1(KBInput.readString("Address Line 1: "));
         guest.setAddressLine2(KBInput.readString("Address Line 2 (optional, press ENTER to skip): "));
-        guest.setCcNo(new CreditCard(KBInput.readString("Enter Credit Card No.: ")));
+        while(true) {
+            String ccNo = KBInput.readString("Enter Credit Card No.: ");
+            CreditCard creditCard = new CreditCard(ccNo);
+            if(creditCard == null) {
+                System.out.println("Invalid Credit Card No!");
+            } else {
+                guest.setCcNo(creditCard);
+                break;
+            }
+        }
 
         uDao.addUser(guest);
     }

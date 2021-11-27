@@ -29,22 +29,21 @@ public class GuestMenu {
 
             int currentGuestId = userControllerMethods.setCurrentGuestID(GuestEmail);
 
-            GuestPrompt.printGuestLoginPrompt();
-            GuestPrompt.printGuestFunctions();
-            guestFuncChoice = KBInput.readString("Your choice: ");
 
-            while (repeat == "y") {
+            while (true) {
+                GuestPrompt.printGuestLoginPrompt();
+                GuestPrompt.printGuestFunctions();
+                guestFuncChoice = KBInput.readString("Your choice: ");
 
                 String repeatInnerMenu = "y";
-
+4832776930856100
 //                while(repeatInnerMenu == "y"){
                     if(guestFuncChoice.equalsIgnoreCase("vp")){
 
-                        MainPrompt.productSearchOptions();
-                        String prodSearchChoice = KBInput.readString("Your choice: ");
-                        String repeatSearch = "y";
-
-                        while (repeatSearch == "y") {
+                        while (true) {
+                            MainPrompt.productSearchOptions();
+                            String prodSearchChoice = KBInput.readString("Your choice: ");
+                            String repeatSearch = "y";
                             if(prodSearchChoice.equalsIgnoreCase("va")){
                                 productControllerMethods.viewAll();
                             } else if(prodSearchChoice.equalsIgnoreCase("id")){
@@ -57,18 +56,19 @@ public class GuestMenu {
                                 String searchType = KBInput.readString("Enter the type of product: ");
                                 productControllerMethods.viewOneByType(searchType);
                             } else if(prodSearchChoice.equalsIgnoreCase("xs")){
-                                repeatSearch = "n";
+                                break;
                             } else if(!prodSearchChoice.equalsIgnoreCase("va") || !prodSearchChoice.equalsIgnoreCase("id") || !prodSearchChoice.equalsIgnoreCase("pn") || !prodSearchChoice.equalsIgnoreCase("pt") || !prodSearchChoice.equalsIgnoreCase("xs")){
                                 System.out.println(">>Invalid Entry<<");
                             }
                         }
+
                     } else if(guestFuncChoice.equalsIgnoreCase("a")){
-                        cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST); //TODO: Infinite loop bug
+                        cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST);
                     } else if(guestFuncChoice.equalsIgnoreCase("vc")){
-                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST); //TODO: Infinite loop bug
+                        cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST);
                     } else if(guestFuncChoice.equalsIgnoreCase("x")){
-                        repeat = "n";
-                    } else if(!guestFuncChoice.equalsIgnoreCase("vp") || !guestFuncChoice.equalsIgnoreCase("a") || !guestFuncChoice.equalsIgnoreCase("vc") || !guestFuncChoice.equalsIgnoreCase("x")){
+                        break;
+                    } else {
                         System.out.println(">>Invalid Entry<<");
                         repeat = "n";
                     }
