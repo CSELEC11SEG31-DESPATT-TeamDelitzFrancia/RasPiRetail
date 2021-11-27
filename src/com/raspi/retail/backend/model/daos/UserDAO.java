@@ -615,7 +615,7 @@ public class UserDAO implements DAO {
      * @param userType what type of user to delete
      * @param id user id
      */
-    public void deleteProduct(CustomerType userType, int id) {
+    public void deleteUser(CustomerType userType, int id) {
 
         ResultSet dbUser = getUserResultSetById(userType, id);
         String setQuery = queryBuilder(userType, UserDAOQueryStore.DELETE_USER);
