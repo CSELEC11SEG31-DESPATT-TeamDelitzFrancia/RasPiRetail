@@ -41,7 +41,7 @@ public class CustomerMenu {
                     String prodSearchChoice = KBInput.readString("Your choice: ");
 
                     while(repeatSearch == "y"){
-                        if(customerFuncChoice.equalsIgnoreCase("vp")){
+                        if(customerFuncChoice.equalsIgnoreCase("va")){
                             productControllerMethods.viewAll();
                         } else if(customerFuncChoice.equalsIgnoreCase("id")){
                             int searchID = KBInput.readInt("Enter the ID of the product: ");
@@ -49,67 +49,22 @@ public class CustomerMenu {
                         } else if(customerFuncChoice.equalsIgnoreCase("pn")){
                             String searchName = KBInput.readString("Enter the name of the product: ");
                             productControllerMethods.viewOneByName(searchName);
+                        } else if(customerFuncChoice.equalsIgnoreCase("pt")){
+                            String searchType = KBInput.readString("Enter the type of product: ");
+                            productControllerMethods.viewOneByType(searchType);
+                        } else if(customerFuncChoice.equalsIgnoreCase("xs")){
+                            repeatSearch = "n";
+                        } else {
+                            System.out.println(">>Invalid Entry<<");
                         }
+
                     }
-                }
-            }
-
-
-
-
-
-
-            while (repeat == "y"){
-                switch (customerFuncChoice.toLowerCase()) {
-                    case "vp": //view products
-                        MainPrompt.productSearchOptions();
-                        String prodSearchChoice = KBInput.readString("Your choice: ");
-
-                        while(repeatSearch == "y"){
-                            switch (prodSearchChoice.toLowerCase()){
-                                case "va": //View ALL Products
-                                    productControllerMethods.viewAll();
-                                    //repeatSearch = "n";
-                                    break;
-
-                                case "id": //Search for product by ID
-                                    int searchID = KBInput.readInt("Enter the ID of the product: ");
-                                    productControllerMethods.viewOneById(searchID);
-                                    //repeatSearch = "n";
-                                    break;
-
-                                case "pn": //Search for product by NAME
-                                    String searchName = KBInput.readString("Enter the name of the product: ");
-                                    productControllerMethods.viewOneByName(searchName);
-                                    //repeatSearch = "n";
-                                    break;
-
-                                case "pt": //Search for product by TYPE
-                                    String searchType = KBInput.readString("Enter the type of product: ");
-                                    productControllerMethods.viewOneByType(searchType);
-                                    //repeatSearch = "n";
-                                    break;
-
-                                case "xs": //Stop searching
-                                    repeatSearch = "n";
-                                    break;
-                            }
-                            repeat = "n";
-                            break;
-                        }
-                        break;
-
-                    case "a": //add to cart
-                        cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
-                        break;
-
-                    case "vc": //view cart
-                        cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
-                        break;
-
-                    case "x": //end program
-                        repeat = "n";
-                        break;
+                } else if(customerFuncChoice.equalsIgnoreCase("a")){
+                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
+                } else if(customerFuncChoice.equalsIgnoreCase("vc")){
+                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
+                } else if(customerFuncChoice.equalsIgnoreCase("x")){
+                    repeat = "n";
                 }
             }
         } else {

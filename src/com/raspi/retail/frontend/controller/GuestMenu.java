@@ -34,54 +34,45 @@ public class GuestMenu {
             guestFuncChoice = KBInput.readString("Your choice: ");
 
             while (repeat == "y") {
-                switch (guestFuncChoice.toLowerCase()) {
-                    case "vp": //view products
+
+                String repeatInnerMenu = "y";
+
+//                while(repeatInnerMenu == "y"){
+                    if(guestFuncChoice.equalsIgnoreCase("vp")){
+
                         MainPrompt.productSearchOptions();
                         String prodSearchChoice = KBInput.readString("Your choice: ");
                         String repeatSearch = "y";
 
                         while (repeatSearch == "y") {
-                            switch (prodSearchChoice.toLowerCase()) {
-                                case "va": //View ALL Products
-                                    productControllerMethods.viewAll();
-                                    break;
-
-                                case "id": //Search for product by ID
-                                    int searchID = KBInput.readInt("Enter the ID of the product: ");
-                                    productControllerMethods.viewOneById(searchID);
-                                    break;
-
-                                case "pn": //Search for product by NAME
-                                    String searchName = KBInput.readString("Enter the name of the product: ");
-                                    productControllerMethods.viewOneByName(searchName);
-                                    break;
-
-                                case "pt": //Search for product by TYPE
-                                    String searchType = KBInput.readString("Enter the type of product: ");
-                                    productControllerMethods.viewOneByType(searchType);
-                                    break;
-
-                                case "xs": //Stop searching
-                                    repeatSearch = "n";
-                                    break;
+                            if(prodSearchChoice.equalsIgnoreCase("va")){
+                                productControllerMethods.viewAll();
+                            } else if(prodSearchChoice.equalsIgnoreCase("id")){
+                                int searchID = KBInput.readInt("Enter the ID of the product: ");
+                                productControllerMethods.viewOneById(searchID);
+                            } else if(prodSearchChoice.equalsIgnoreCase("pn")){
+                                String searchName = KBInput.readString("Enter the name of the product: ");
+                                productControllerMethods.viewOneByName(searchName);
+                            } else if(prodSearchChoice.equalsIgnoreCase("pt")){
+                                String searchType = KBInput.readString("Enter the type of product: ");
+                                productControllerMethods.viewOneByType(searchType);
+                            } else if(prodSearchChoice.equalsIgnoreCase("xs")){
+                                repeatSearch = "n";
+                            } else if(!prodSearchChoice.equalsIgnoreCase("va") || !prodSearchChoice.equalsIgnoreCase("id") || !prodSearchChoice.equalsIgnoreCase("pn") || !prodSearchChoice.equalsIgnoreCase("pt") || !prodSearchChoice.equalsIgnoreCase("xs")){
+                                System.out.println(">>Invalid Entry<<");
                             }
-                            repeat = "n";
-                            break;
                         }
-                        break;
-
-                    case "a": //add to cart
+                    } else if(guestFuncChoice.equalsIgnoreCase("a")){
                         cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST);
-                        break;
-
-                    case "vc": //view cart
+                    } else if(guestFuncChoice.equalsIgnoreCase("vc")){
                         cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST);
-                        break;
-
-                    case "x": //end program
+                    } else if(guestFuncChoice.equalsIgnoreCase("x")){
                         repeat = "n";
-                        break;
-                }
+                    } else if(!guestFuncChoice.equalsIgnoreCase("vp") || !guestFuncChoice.equalsIgnoreCase("a") || !guestFuncChoice.equalsIgnoreCase("vc") || !guestFuncChoice.equalsIgnoreCase("x")){
+                        System.out.println(">>Invalid Entry<<");
+                        repeat = "n";
+                    }
+//                }
             }
         } else if (guestLoginChoice.equalsIgnoreCase("SU")) {
             userControllerMethods.signUp(); //Sign up

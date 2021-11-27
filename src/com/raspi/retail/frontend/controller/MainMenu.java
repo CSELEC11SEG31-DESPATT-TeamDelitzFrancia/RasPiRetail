@@ -35,7 +35,7 @@ public class MainMenu {
                     break;
 
                 case "e":
-                    break;
+                    return;
 
                 default:
                     System.out.println("Invalid User Choice!");
