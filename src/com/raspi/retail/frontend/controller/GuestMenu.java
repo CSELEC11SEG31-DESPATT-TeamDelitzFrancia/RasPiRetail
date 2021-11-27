@@ -18,7 +18,7 @@ public class GuestMenu {
         String guestFuncChoice;
         String repeat = "y";
 
-        String username = KBInput.readString("Enter your temporary username: ");
+        String username = KBInput.readString("Enter your temporary username: "); //TODO: added a tempUser, incorrect?
 
         int currentMemberId = userControllerMethods.setCurrentMemberID(username);
 
@@ -28,13 +28,31 @@ public class GuestMenu {
 
         while (repeat == "y"){
             switch (guestFuncChoice.toLowerCase()) {
+
+                case "su": //sign up
+                    userControllerMethods.signUp(); //TODO: Add repeat = "n" to necessary methods
+                    repeat = "n";
+                    break;
+
+                case "a": //add to cart
+                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
+                    break;
+
+                case "vc": //view cart
+                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
+                    break;
+
+                case "x": //end program
+                    repeat = "n";
+                    break;
+
                 case "vp": //view products
                     MainPrompt.productSearchOptions();
                     String prodSearchChoice = KBInput.readString("Your choice: ");
                     String repeatSearch = "y";
 
-                    while(repeatSearch == "y"){
-                        switch (prodSearchChoice.toLowerCase()){
+                    while(repeatSearch == "y") {
+                        switch (prodSearchChoice.toLowerCase()) {
                             case "va": //View ALL Products
                                 productControllerMethods.viewAll();
                                 break;
@@ -58,25 +76,9 @@ public class GuestMenu {
                                 repeatSearch = "n";
                                 break;
                         }
+                        repeat = "n";
                         break;
                     }
-
-                case "su": //sign up
-                    userControllerMethods.signUp(); //TODO: Add repeat = "n" to necessary methods
-                    repeat = "n";
-                    break;
-
-                case "a": //add to cart
-                    cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
-                    break;
-
-                case "vc": //view cart
-                    cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
-                    break;
-
-                case "x": //end program
-                    repeat = "n";
-                    break;
             }
         }
     }
