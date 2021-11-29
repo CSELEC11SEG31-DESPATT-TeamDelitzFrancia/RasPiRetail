@@ -59,6 +59,8 @@ public class CustomerMenu {
                     cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
                     cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
+                } else if(customerFuncChoice.equalsIgnoreCase("co")){
+                    //TODO: insert checkout option
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
                     break;
                 }

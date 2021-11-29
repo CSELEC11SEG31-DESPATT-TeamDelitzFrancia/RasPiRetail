@@ -62,6 +62,8 @@ public class GuestMenu {
                     cartControllerMethods.createOne(currentGuestId, CustomerType.GUEST);
                 } else if(guestFuncChoice.equalsIgnoreCase("vc")){
                     cartControllerMethods.getUserCart(currentGuestId, CustomerType.GUEST);
+                } else if(guestFuncChoice.equalsIgnoreCase("co")){
+                    //TODO: insert checkout option
                 } else if(guestFuncChoice.equalsIgnoreCase("x")){
                     break;
                 } else {

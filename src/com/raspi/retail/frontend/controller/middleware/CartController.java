@@ -13,8 +13,6 @@ import java.util.Scanner;
 
 public class CartController implements Facade {
 
-    Scanner input = new Scanner(System.in);
-
     ModelFactory daoFactory = ModelFactoryProducer.createFactory("dao");
     CartDAO cDAO = (CartDAO) daoFactory.createDAOPrototype("cart");
 
