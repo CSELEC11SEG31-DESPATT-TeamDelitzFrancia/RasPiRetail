@@ -15,9 +15,6 @@ public enum ProductType {
 
     @Override
     public String toString() {
-        return "ProductType{" +
-                productType + "#" +
-                hashCode() +
-                '}';
+        return this.productType;
     }
 }

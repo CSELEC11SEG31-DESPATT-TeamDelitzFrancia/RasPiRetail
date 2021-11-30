@@ -11,6 +11,7 @@
 - **Prototype**
 - **Singleton**
 - **Facade**
+- **Builder**
 
 ## How are they Implemented?
 
@@ -31,6 +32,9 @@
 ### [Facade]
 - The `Facade` interface is located at the `frontend.controller.middleware`, as the `middleware` package handles all the frontend requests to the backend code that serves the data from the database.
 - The `Facade`'s children are the main controllers that work with the backend to request and send data to and from the database.
+
+### [Builder]
+- The `Builder` design pattern is implemented through the PackageDTO, where it has a `Builder` class that is used to set its values upon packing, and saving it into the database through the respected DAO.
 
 > Separating the frontend and backend is something we decided in order to organise how the program will function as a whole. This also simulates a practice done in Web Development in which, an entire stack is separated into at most, 3 parts.
 > This includes:

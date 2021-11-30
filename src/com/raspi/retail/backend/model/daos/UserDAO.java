@@ -117,8 +117,6 @@ public class UserDAO implements DAO {
      */
     private ResultSet getUserResultSetById(CustomerType userType, int id) {
 
-        ResultSet dbUser;
-
         String setQuery = queryBuilder(userType, UserDAOQueryStore.GET_USER_BY_ID);
 
         try {
