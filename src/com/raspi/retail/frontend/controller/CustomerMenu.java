@@ -72,8 +72,10 @@ public class CustomerMenu {
                             : pkgTypeChoice.equals("2")
                                 ? PackageType.BUBBLEWRAP_ELECTROSTATIC
                                 : null;
-                    if(pkgType != null)
+                    if(pkgType != null) {
                         packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, pkgType, currentMemberId);
+                        break;
+                    }
                     else {
                         System.out.println("Invalid Choice! Please select from the options for packaging.");
                     }
