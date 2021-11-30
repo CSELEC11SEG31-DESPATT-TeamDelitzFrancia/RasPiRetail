@@ -76,9 +76,6 @@ public class PackageController implements Facade{
         pkDao.removePackage(userType, pkgID);
     }
 
-    //public void addPackage(CustomerType userType, PackageType pkgType, int customerID) {
-    //public void removePackage(CustomerType userType, int pkgID)
-
     @Override
     public void viewAll() {
 
