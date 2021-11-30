@@ -90,11 +90,11 @@ public class AdminMenu {
                             CustomerType searchUserType = CustomerType.valueOf(searchUser.toUpperCase());
                             packageControllerMethods.adminViewPackages(searchUserType);
 
-                        } else if (AdminPkgFuncChoice.equalsIgnoreCase("uid")) {
-                            CustomerType searchUserType = CustomerType.valueOf(KBInput.readString("Enter the customer type of the package list (Customer/Guest)").toUpperCase());
-                            int searchPkgID = KBInput.readInt("Enter the package ID to search: ");
-
-                            packageControllerMethods.adminViewPackageByID(searchUserType, searchPkgID);
+//                        } else if (AdminPkgFuncChoice.equalsIgnoreCase("uid")) {
+//                            CustomerType searchUserType = CustomerType.valueOf(KBInput.readString("Enter the customer type of the package list (Customer/Guest)").toUpperCase());
+//                            int searchPkgID = KBInput.readInt("Enter the package ID to search: ");
+//
+//                            packageControllerMethods.adminViewPackageByID(searchUserType, searchPkgID);
 
                         } else if (AdminPkgFuncChoice.equalsIgnoreCase("rp")) {
                             CustomerType searchUserType = CustomerType.valueOf(KBInput.readString("Enter the customer type of the package list (Customer/Guest)").toUpperCase());

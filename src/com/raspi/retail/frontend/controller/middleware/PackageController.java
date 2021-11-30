@@ -18,6 +18,7 @@ import com.raspi.retail.frontend.view.display.CartDisplay;
 import com.raspi.retail.frontend.view.display.PackageDisplay;
 
 import java.lang.reflect.Array;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class PackageController implements Facade{
@@ -66,17 +67,14 @@ public class PackageController implements Facade{
         PackageDisplay.displayPackages(viewAllPackages);
     }
 
-    public void adminViewPackageByID(CustomerType userType, int packageID){
-        //TODO: add package searchbyID
-    }
+//    public void adminViewPackageByID(CustomerType userType, int packageID){
+//        pkDao.getPackageResultSetByID(userType, packageID);
+//    }
 
     public void adminDeletePackageByID(CustomerType userType, int pkgID){
 
         pkDao.removePackage(userType, pkgID);
     }
-
-    //public void addPackage(CustomerType userType, PackageType pkgType, int customerID) {
-    //public void removePackage(CustomerType userType, int pkgID)
 
     @Override
     public void viewAll() {

@@ -21,7 +21,7 @@ public class AdminPrompt extends MainPrompt {
     public static void printAdminPackageFunctions(){
         System.out.println("\nSelect a package manager function: " +
                 "\n\n[VAP]: View All Packages" +
-                "\n[UID]: View Package by User ID" +
+                //"\n[UID]: View Package by User ID" +
                 "\n[RP]: Remove Package");
     }
 }
