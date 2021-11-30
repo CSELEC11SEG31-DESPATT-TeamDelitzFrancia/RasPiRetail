@@ -81,7 +81,7 @@ public class PackageDAO implements DAO {
             if(dbct != null && !setQuery.equals("")) {
                 PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
                 dbPackages = prepStmt.executeQuery();
-                packages = convertResultSetRecordsToArrayList(dbPackages);
+                packages = convertResultSetRecordsToArrayList(userType, dbPackages);
             } else if(setQuery.equals("")) {
                   System.err.println("You didn't set a customer type. Please try again.");
             } else {
