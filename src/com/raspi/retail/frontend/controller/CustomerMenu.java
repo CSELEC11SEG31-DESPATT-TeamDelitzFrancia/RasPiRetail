@@ -63,6 +63,7 @@ public class CustomerMenu {
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
                     cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("co")){
+<<<<<<< HEAD
                     System.out.println("Select an option for packaging: ");
                     System.out.println("\n[1]: Standard Electrostatic Packaging");
                     System.out.println("[2]: Bubble Wrap Electrostatic Packaging\n");
@@ -77,6 +78,13 @@ public class CustomerMenu {
                     else {
                         System.out.println("Invalid Choice! Please select from the options for packaging.");
                     }
+=======
+                    PackageType packageTypeChoice = PackageType.valueOf(KBInput.readString("Select an option for package type: " +
+                            "\n[1]: STANDARD_ELECTROSTATIC" +
+                            "\n[2]: BUBBLEWRAP_ELECTROSTATIC"));
+
+                    packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, packageTypeChoice, currentMemberId);
+>>>>>>> dev/delitzl
 
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
                     break;
