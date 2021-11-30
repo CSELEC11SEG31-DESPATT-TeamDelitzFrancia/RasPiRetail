@@ -18,9 +18,9 @@ public interface DBConfig {
      *     credentials.
      * </p>
      */
-    // String DB_URL = "jdbc:mysql://localhost:3306/despatt";
-    // String DB_USER = "root";
-    // String DB_PASSWORD = "";
+    String DB_URL = "jdbc:mysql://localhost:3306/despatt";
+    String DB_USER = "root";
+    String DB_PASSWORD = "";
 
     /**
      * MariaDB+PhpMyAdmin Docker Dev Credentials
@@ -34,8 +34,8 @@ public interface DBConfig {
      *     to run the MariaDB+PhpMyAdmin docker stack.
      * </p>
      */
-    String DB_URL = "jdbc:mysql://localhost:12000/despatt";
-    String DB_USER = "root";
-    String DB_PASSWORD = "asdfasdf";
+    // String DB_URL = "jdbc:mysql://localhost:12000/despatt";
+    // String DB_USER = "root";
+    // String DB_PASSWORD = "asdfasdf";
 
 }
