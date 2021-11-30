@@ -62,7 +62,6 @@ public class PackageController implements Facade{
 
 
     public void adminViewPackages(CustomerType userType){
-
         ArrayList<PackageDTO> viewAllPackages = pkDao.getPackages(userType);
         PackageDisplay.displayPackages(viewAllPackages);
     }

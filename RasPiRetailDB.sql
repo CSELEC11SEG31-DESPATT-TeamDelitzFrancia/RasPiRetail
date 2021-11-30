@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 26, 2021 at 12:19 PM
+-- Generation Time: Nov 30, 2021 at 01:00 PM
 -- Server version: 10.4.21-MariaDB-1:10.4.21+maria~focal
 -- PHP Version: 7.4.20
 
@@ -57,8 +57,8 @@ CREATE TABLE `RasPiRetail_CustomerPackages` (
 --
 
 INSERT INTO `RasPiRetail_CustomerPackages` (`packageID`, `packageType`, `customerID`) VALUES
-(1, 'Standard Electrostatic', 1),
-(2, 'Standard Electrostatic', 2);
+(1, 'STANDARD_ELECTROSTATIC', 1),
+(2, 'STANDARD_ELECTROSTATIC', 2);
 
 -- --------------------------------------------------------
 
@@ -160,7 +160,7 @@ CREATE TABLE `RasPiRetail_GuestPackages` (
 --
 
 INSERT INTO `RasPiRetail_GuestPackages` (`packageID`, `packageType`, `guestID`) VALUES
-(1, 'Standard Electrostatic', 1);
+(1, 'STANDARD_ELECTROSTATIC', 1);
 
 -- --------------------------------------------------------
 
@@ -185,7 +185,9 @@ CREATE TABLE `RasPiRetail_Guests` (
 
 INSERT INTO `RasPiRetail_Guests` (`id`, `email`, `firstName`, `lastName`, `addressLine1`, `addressLine2`, `ccNo`, `guestAccountCreationTime`) VALUES
 (1, 'email@example.com', 'Example', 'DotCom', 'Example St.', 'Suburbia', '4035300539804083', '2021-11-01 09:33:04'),
-(2, 'mr.real@realemail.com', 'Real', 'Mann', 'Totally Real St.', NULL, '4450787876620583', '2021-11-01 09:33:04');
+(2, 'mr.real@realemail.com', 'Real', 'Mann', 'Totally Real St.', NULL, '4450787876620583', '2021-11-01 09:33:04'),
+(3, 'email@example1.com', 'Merdu', 'Romania', 'John St.', '', '4347965756809222', '2021-11-27 14:59:54'),
+(4, 'guest@guests.org', 'guest', 'guest', 'guest st.', '', '4832776930856100', '2021-11-27 15:09:05');
 
 -- --------------------------------------------------------
 
@@ -400,7 +402,7 @@ ALTER TABLE `RasPiRetail_GuestPackages`
 -- AUTO_INCREMENT for table `RasPiRetail_Guests`
 --
 ALTER TABLE `RasPiRetail_Guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `RasPiRetail_Products`

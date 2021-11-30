@@ -86,8 +86,8 @@ public class AdminMenu {
                         String AdminPkgFuncChoice = KBInput.readString("\nYour choice: ");
 
                         if (AdminPkgFuncChoice.equalsIgnoreCase("vap")) { //view all packages
-                            CustomerType searchUserType = CustomerType.valueOf(KBInput.readString("Enter the customer type of the package list (Customer/Guest)").toUpperCase());
-
+                            String searchUser = KBInput.readString("Enter the customer type of the package list (Customer/Guest)");
+                            CustomerType searchUserType = CustomerType.valueOf(searchUser.toUpperCase());
                             packageControllerMethods.adminViewPackages(searchUserType);
 
                         } else if (AdminPkgFuncChoice.equalsIgnoreCase("uid")) {
