@@ -32,6 +32,14 @@ public class PackageController implements Facade{
     private GuestDTO guest = (GuestDTO) dtoFactory.createDTOPrototype("guest");
 
     public void checkoutCustomer(CustomerType userType, PackageType pkgType, int customerID) {
+//        if(pkgType.equals("1")){
+//            pkgType = PackageType.valueOf("STANDARD_ELECTROSTATIC");
+//        }
+//        if(pkgType.equals("2")){
+//            pkgType = PackageType.valueOf("BUBBLEWRAP_ELECTROSTATIC");
+//        } else {
+//            System.out.println("Invalid Entry");
+//        }
         // get current cart from user
         ArrayList<CartItem> currUserCart = cDao.getUserCart(customerID, userType);
         // scan through the user's cart to subtract the stock

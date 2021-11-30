@@ -66,6 +66,7 @@ public class CustomerMenu {
                     PackageType packageTypeChoice = PackageType.valueOf(KBInput.readString("Select an option for package type: " +
                             "\n[1]: STANDARD_ELECTROSTATIC" +
                             "\n[2]: BUBBLEWRAP_ELECTROSTATIC"));
+
                     packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, packageTypeChoice, currentMemberId);
 
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
