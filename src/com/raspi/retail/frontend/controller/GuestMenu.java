@@ -76,7 +76,7 @@ public class GuestMenu {
                                 ? PackageType.BUBBLEWRAP_ELECTROSTATIC
                                 : null;
                     if(pkgType != null)
-                        packageControllerMethods.checkoutCustomer(CustomerType.GUEST, pkgType, currentMemberId);
+                        packageControllerMethods.checkoutCustomer(CustomerType.GUEST, pkgType, currentGuestId);
                     else {
                         System.out.println("Invalid Choice! Please select from the options for packaging.");
                     }
