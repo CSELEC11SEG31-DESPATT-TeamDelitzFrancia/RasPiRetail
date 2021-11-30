@@ -1,8 +1,10 @@
 package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.model.dtos.enums.CustomerType;
+import com.raspi.retail.backend.model.dtos.enums.PackageType;
 import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.controller.middleware.CartController;
+import com.raspi.retail.frontend.controller.middleware.PackageController;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
 import com.raspi.retail.frontend.controller.middleware.UserController;
 import com.raspi.retail.frontend.view.menu.CustomerPrompt;
@@ -13,6 +15,7 @@ public class CustomerMenu {
     private static ProductController productControllerMethods = new ProductController();
     private static CartController cartControllerMethods = new CartController();
     private static UserController userControllerMethods = new UserController();
+    private static PackageController packageControllerMethods = new PackageController();
 
     public static void index() {
         String username;
@@ -60,7 +63,11 @@ public class CustomerMenu {
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
                     cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("co")){
-                    //TODO: insert checkout option
+                    PackageType packageTypeChoice = PackageType.valueOf(KBInput.readString("Select an option for package type: " +
+                            "\n[1]: STANDARD_ELECTROSTATIC" +
+                            "\n[2]: BUBBLEWRAP_ELECTROSTATIC"));
+                    packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, packageTypeChoice, currentMemberId);
+
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
                     break;
                 }
