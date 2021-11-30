@@ -63,10 +63,20 @@ public class CustomerMenu {
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
                     cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("co")){
-                    PackageType packageTypeChoice = PackageType.valueOf(KBInput.readString("Select an option for package type: " +
-                            "\n[1]: STANDARD_ELECTROSTATIC" +
-                            "\n[2]: BUBBLEWRAP_ELECTROSTATIC"));
-                    packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, packageTypeChoice, currentMemberId);
+                    System.out.println("Select an option for packaging: ");
+                    System.out.println("\n[1]: Standard Electrostatic Packaging");
+                    System.out.println("[2]: Bubble Wrap Electrostatic Packaging\n");
+                    String pkgTypeChoice = KBInput.readString("Enter Here: ");
+                    PackageType pkgType = pkgTypeChoice.equals("1")
+                            ? PackageType.STANDARD_ELECTROSTATIC
+                            : pkgTypeChoice.equals("2")
+                                ? PackageType.BUBBLEWRAP_ELECTROSTATIC
+                                : null;
+                    if(pkgType != null)
+                        packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, pkgType, currentMemberId);
+                    else {
+                        System.out.println("Invalid Choice! Please select from the options for packaging.");
+                    }
 
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
                     break;
