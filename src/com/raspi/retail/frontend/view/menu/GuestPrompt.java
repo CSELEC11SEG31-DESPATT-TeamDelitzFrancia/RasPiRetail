@@ -18,6 +18,7 @@ public class GuestPrompt extends MainPrompt{
                 "\n[VP]: View Products" +
                 "\n[A]: Add to Cart" +
                 "\n[VC]: View Cart" +
+                "\n[CO]: Checkout" +
                 "\n[X]: Terminate Program");
     }
 }

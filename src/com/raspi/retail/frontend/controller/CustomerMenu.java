@@ -1,8 +1,10 @@
 package com.raspi.retail.frontend.controller;
 
 import com.raspi.retail.backend.model.dtos.enums.CustomerType;
+import com.raspi.retail.backend.model.dtos.enums.PackageType;
 import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.controller.middleware.CartController;
+import com.raspi.retail.frontend.controller.middleware.PackageController;
 import com.raspi.retail.frontend.controller.middleware.ProductController;
 import com.raspi.retail.frontend.controller.middleware.UserController;
 import com.raspi.retail.frontend.view.menu.CustomerPrompt;
@@ -13,6 +15,7 @@ public class CustomerMenu {
     private static ProductController productControllerMethods = new ProductController();
     private static CartController cartControllerMethods = new CartController();
     private static UserController userControllerMethods = new UserController();
+    private static PackageController packageControllerMethods = new PackageController();
 
     public static void index() {
         String username;
@@ -59,6 +62,21 @@ public class CustomerMenu {
                     cartControllerMethods.createOne(currentMemberId, CustomerType.CUSTOMER);
                 } else if(customerFuncChoice.equalsIgnoreCase("vc")){
                     cartControllerMethods.getUserCart(currentMemberId, CustomerType.CUSTOMER);
+                } else if(customerFuncChoice.equalsIgnoreCase("co")){
+                    System.out.println("Select an option for packaging: ");
+                    System.out.println("\n[1]: Standard Electrostatic Packaging");
+                    System.out.println("[2]: Bubble Wrap Electrostatic Packaging\n");
+                    String pkgTypeChoice = KBInput.readString("Enter Here: ");
+                    PackageType pkgType = pkgTypeChoice.equals("1")
+                            ? PackageType.STANDARD_ELECTROSTATIC
+                            : pkgTypeChoice.equals("2")
+                                ? PackageType.BUBBLEWRAP_ELECTROSTATIC
+                                : null;
+                    if(pkgType != null)
+                        packageControllerMethods.checkoutCustomer(CustomerType.CUSTOMER, pkgType, currentMemberId);
+                    else {
+                        System.out.println("Invalid Choice! Please select from the options for packaging.");
+                    }
                 } else if(customerFuncChoice.equalsIgnoreCase("x")){
                     break;
                 }

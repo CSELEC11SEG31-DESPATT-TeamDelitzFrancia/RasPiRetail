@@ -1,10 +1,7 @@
 package com.raspi.retail.backend.model.factory;
 
 import com.raspi.retail.backend.model.ModelFactory;
-import com.raspi.retail.backend.model.daos.CartDAO;
-import com.raspi.retail.backend.model.daos.DAO;
-import com.raspi.retail.backend.model.daos.ProductDAO;
-import com.raspi.retail.backend.model.daos.UserDAO;
+import com.raspi.retail.backend.model.daos.*;
 import com.raspi.retail.backend.model.dtos.DTO;
 
 import java.util.HashMap;
@@ -18,6 +15,7 @@ public class DAOFactory extends ModelFactory {
         prototypeStore.put("product", ProductDAO.getDAOInstance());
         prototypeStore.put("cart", CartDAO.getDAOInstance());
         prototypeStore.put("user", UserDAO.getDAOInstance());
+        prototypeStore.put("package", PackageDAO.getDAOInstance());
     }
 
     /**

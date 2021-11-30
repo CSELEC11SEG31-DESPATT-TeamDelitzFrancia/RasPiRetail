@@ -4,6 +4,7 @@ import com.raspi.retail.backend.model.ModelFactory;
 import com.raspi.retail.backend.model.daos.DAO;
 import com.raspi.retail.backend.model.dtos.AdminDTO;
 import com.raspi.retail.backend.model.dtos.DTO;
+import com.raspi.retail.backend.model.dtos.PackageDTO;
 import com.raspi.retail.backend.model.dtos.ProductDTO;
 import com.raspi.retail.backend.model.dtos.customer.GuestDTO;
 import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
@@ -20,12 +21,13 @@ public class DTOFactory extends ModelFactory {
         prototypeStore.put("admin", new AdminDTO());
         prototypeStore.put("customer", new MemberDTO());
         prototypeStore.put("guest", new GuestDTO());
+        prototypeStore.put("package", new PackageDTO());
     }
 
     /**
      * Creates a DTO Factory.
      *
-     * @param type ("product"|"admin"|"customer"|"guest") what prototype of dto is preferred.
+     * @param type ("product"|"admin"|"customer"|"guest"|"package") what prototype of dto is preferred.
      * @return DTO of that prototype. (Must be typecasted)
      */
     @Override
