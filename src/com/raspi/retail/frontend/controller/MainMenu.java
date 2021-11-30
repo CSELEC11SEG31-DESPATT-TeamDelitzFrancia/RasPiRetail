@@ -23,11 +23,11 @@ public class MainMenu {
                     break;
 
                 case "c":
-                    com.raspi.retail.frontend.controller.CustomerMenu.index();
+                    CustomerMenu.index();
                     break;
 
                 case "g":
-                    com.raspi.retail.frontend.controller.GuestMenu.index();
+                    GuestMenu.index();
                     break;
 
                 case "su": //sign up
