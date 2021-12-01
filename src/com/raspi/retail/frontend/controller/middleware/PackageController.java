@@ -5,7 +5,6 @@ import com.raspi.retail.backend.model.ModelFactoryProducer;
 import com.raspi.retail.backend.model.daos.CartDAO;
 import com.raspi.retail.backend.model.daos.PackageDAO;
 import com.raspi.retail.backend.model.daos.ProductDAO;
-import com.raspi.retail.backend.model.dtos.AdminDTO;
 import com.raspi.retail.backend.model.dtos.CartItem;
 import com.raspi.retail.backend.model.dtos.PackageDTO;
 import com.raspi.retail.backend.model.dtos.ProductDTO;
@@ -13,12 +12,7 @@ import com.raspi.retail.backend.model.dtos.customer.GuestDTO;
 import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
 import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 import com.raspi.retail.backend.model.dtos.enums.PackageType;
-import com.raspi.retail.backend.util.KBInput;
-import com.raspi.retail.frontend.view.display.CartDisplay;
 import com.raspi.retail.frontend.view.display.PackageDisplay;
-
-import java.lang.reflect.Array;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class PackageController implements Facade{
