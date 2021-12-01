@@ -5,6 +5,7 @@ import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Data Access Objects (DAOs)
@@ -26,14 +27,15 @@ public interface DAO extends Cloneable {
         return null;
     }
 
-    // must always have a conversion method to an ArrayList
-    <E> ArrayList<E> convertResultSetRecordsToArrayList(ResultSet rs);
-    <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs);
+    // must always have a conversion method t an Iterator
+    Iterator convertResultSetRecordsToIterator(ResultSet rs);
+    Iterator convertResultSetRecordsToIterator(CustomerType customerType, ResultSet rs);
 
     // must always have a conversion method to a single single DTO
     DTO convertResultSetRecordToDTO(ResultSet rs);
 
     // must be cloneable
     Object clone() throws CloneNotSupportedException;
+
 
 }

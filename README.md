@@ -12,6 +12,7 @@
 - **Singleton**
 - **Facade**
 - **Builder**
+- **Iterator**
 
 ## How are they Implemented?
 
@@ -35,6 +36,9 @@
 
 ### [Builder]
 - The `Builder` design pattern is implemented through the PackageDTO, where it has a `Builder` class that is used to set its values upon packing, and saving it into the database through the respected DAO.
+
+### [Iterator]
+- The `Iterator` design pattern is implemented through the DAO Interface, which makes all its children use Iterators over ArrayLists for passing data through other classes of the program.
 
 > Separating the frontend and backend is something we decided in order to organise how the program will function as a whole. This also simulates a practice done in Web Development in which, an entire stack is separated into at most, 3 parts.
 > This includes:

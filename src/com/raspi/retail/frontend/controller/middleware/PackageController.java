@@ -20,6 +20,7 @@ import com.raspi.retail.frontend.view.display.PackageDisplay;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PackageController implements Facade{
 
@@ -43,9 +44,10 @@ public class PackageController implements Facade{
 //            System.out.println("Invalid Entry");
 //        }
         // get current cart from user
-        ArrayList<CartItem> currUserCart = cDao.getUserCart(customerID, userType);
+        Iterator<CartItem> currUserCart = cDao.getUserCart(customerID, userType);
         // scan through the user's cart to subtract the stock
-        currUserCart.forEach((cartItem) -> {
+        while(currUserCart.hasNext()) {
+            CartItem cartItem = currUserCart.next();
             // set current product data and updated product data
             ProductDTO productToUpdate = pDao.getProductById(cartItem.getProductID());
             // get current product ID
@@ -56,14 +58,14 @@ public class PackageController implements Facade{
             productToUpdate.setStock(currentProductStock - cartItem.getQuantity());
             // update product
             pDao.updateProduct(currProductID, productToUpdate);
-        });
+        }
         // package the cart contents and save to database
         pkDao.addPackage(userType, pkgType, customerID);
     }
 
 
     public void adminViewPackages(CustomerType userType){
-        ArrayList<PackageDTO> viewAllPackages = pkDao.getPackages(userType);
+        Iterator<PackageDTO> viewAllPackages = pkDao.getPackages(userType);
         PackageDisplay.displayPackages(viewAllPackages);
     }
 

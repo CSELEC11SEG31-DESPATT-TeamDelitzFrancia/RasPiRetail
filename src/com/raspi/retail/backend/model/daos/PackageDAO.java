@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PackageDAO implements DAO {
 
@@ -69,9 +70,9 @@ public class PackageDAO implements DAO {
      * @param userType (CUSTOMER, GUEST, ADMIN) what type of user are you retrieving
      * @return ArrayList of packages from either all GUESTs or CUSTOMERs
      */
-    public ArrayList<PackageDTO> getPackages(CustomerType userType) {
+    public Iterator<PackageDTO> getPackages(CustomerType userType) {
 
-        ArrayList<PackageDTO> packages = new ArrayList<>();
+        Iterator<PackageDTO> packages = null;
         ResultSet dbPackages;
 
         // set appropriate query based on customerType
@@ -81,7 +82,7 @@ public class PackageDAO implements DAO {
             if(dbct != null && !setQuery.equals("")) {
                 PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
                 dbPackages = prepStmt.executeQuery();
-                packages = convertResultSetRecordsToArrayList(userType, dbPackages);
+                packages = convertResultSetRecordsToIterator(userType, dbPackages);
             } else if(setQuery.equals("")) {
                   System.err.println("You didn't set a customer type. Please try again.");
             } else {
@@ -221,7 +222,7 @@ public class PackageDAO implements DAO {
     }
 
     @Override
-    public <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs) {
+    public Iterator<PackageDTO> convertResultSetRecordsToIterator(CustomerType customerType, ResultSet rs) {
         String customerID = customerType.equals(CustomerType.CUSTOMER)
                 ? "customerID"
                 : customerType.equals(CustomerType.GUEST)
@@ -255,7 +256,7 @@ public class PackageDAO implements DAO {
                 System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
         }
 
-        return (ArrayList<E>) packages;
+        return packages.iterator();
 
     }
 
@@ -267,12 +268,12 @@ public class PackageDAO implements DAO {
 
     // unused
     @Override
-    public <E> ArrayList<E> convertResultSetRecordsToArrayList(ResultSet rs) {
-        return null;
-    }
-    @Override
     public DTO convertResultSetRecordToDTO(ResultSet rs) {
         return null;
     }
 
+    @Override
+    public Iterator convertResultSetRecordsToIterator(ResultSet rs) {
+        return null;
+    }
 }

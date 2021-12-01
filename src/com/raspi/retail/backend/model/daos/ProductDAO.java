@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * <p>
@@ -55,13 +56,13 @@ public class ProductDAO implements DAO {
         |_|    \___| \__,_| \__,_| |_| |_| |_| \___| \__||_| |_| \___/  \__,_||___/
      */
     /**
-     * Method to get all current products from the database, and return as an ArrayList.
+     * Method to get all current products from the database, and return as an Iterator.
      *
-     * @return ArrayList of all products from database as ProductDTOs
+     * @return Iterator of all products from database as ProductDTOs
      */
-    public ArrayList<ProductDTO> getAllProducts() {
+    public Iterator<ProductDTO> getAllProducts() {
 
-        ArrayList<ProductDTO> products = new ArrayList<>();
+        Iterator<ProductDTO> products = null;
         ResultSet dbProducts;
         String setQuery = ProductDAOQueryStore.GET_ALL.getQuery();
 
@@ -69,7 +70,8 @@ public class ProductDAO implements DAO {
             if (dbct != null) { // if true, connection successful
                 PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
                 dbProducts = prepStmt.executeQuery();
-                products = convertResultSetRecordsToArrayList(dbProducts);
+//                products = convertResultSetRecordsToArrayList(dbProducts);
+                products = convertResultSetRecordsToIterator(dbProducts);
             } else {
                 System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
             }
@@ -83,15 +85,15 @@ public class ProductDAO implements DAO {
     }
 
         /**
-     * Method to get a row/rows of data into an ArrayList by getting its product name.
+     * Method to get a row/rows of data into an Iterator by getting its product name.
      *
      * @param nameQuery name of product one wishes to search
      * @return ArrayList of one or more products as a ProductDTO
      */
-    public ArrayList<ProductDTO> getProductByName(String nameQuery) {
+    public Iterator<ProductDTO> getProductByName(String nameQuery) {
 
-        ArrayList<ProductDTO> products = new ArrayList<>();
-        ResultSet dbProducts = null;
+        Iterator<ProductDTO> products = null;
+        ResultSet dbProducts;
         String setQuery = ProductDAOQueryStore.GET_ONE_BY_NAME.getQuery();
 
         try {
@@ -100,7 +102,7 @@ public class ProductDAO implements DAO {
 
                 prepStmt.setString(1, ".*"+ nameQuery +".*");
                 dbProducts = prepStmt.executeQuery();
-                products = convertResultSetRecordsToArrayList(dbProducts);
+                products = convertResultSetRecordsToIterator(dbProducts);
 
             } else {
                 System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
@@ -114,14 +116,14 @@ public class ProductDAO implements DAO {
     }
 
     /**
-     * Method to get a row/rows of data into an ArrayList by getting its product type.
+     * Method to get a row/rows of data into an Iterator by getting its product type.
      *
      * @param typeQuery product type one wishes to search
-     * @return ArrayList of one or more Products as a ProductDTO
+     * @return Iterator of one or more Products as a ProductDTO
      */
-    public ArrayList<ProductDTO> getProductByType(String typeQuery) {
+    public Iterator<ProductDTO> getProductByType(String typeQuery) {
 
-        ArrayList<ProductDTO> products = new ArrayList<>();
+        Iterator<ProductDTO> products = null;
         ResultSet dbProducts = null;
         String setQuery = ProductDAOQueryStore.GET_ONE_BY_TYPE.getQuery();
 
@@ -131,7 +133,7 @@ public class ProductDAO implements DAO {
 
                 prepStmt.setString(1, ".*"+ typeQuery +".*");
                 dbProducts = prepStmt.executeQuery();
-                products = convertResultSetRecordsToArrayList(dbProducts);
+                products = convertResultSetRecordsToIterator(dbProducts);
 
             } else {
                 System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
@@ -414,8 +416,7 @@ public class ProductDAO implements DAO {
 
     // ========================================================================================== //
     @Override
-    public ArrayList<ProductDTO> convertResultSetRecordsToArrayList(ResultSet rs) {
-
+    public Iterator<ProductDTO> convertResultSetRecordsToIterator(ResultSet rs) {
         ArrayList<ProductDTO> products = new ArrayList<>();
 
         try {
@@ -440,10 +441,8 @@ public class ProductDAO implements DAO {
             System.err.println("Something went wrong when converting ResultSet to ArrayList.");
             System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
         }
-
-        return products;
+        return products.iterator();
     }
-
 
     @Override
     public ProductDTO convertResultSetRecordToDTO(ResultSet rs) {
@@ -478,9 +477,10 @@ public class ProductDAO implements DAO {
         return super.clone();
     }
 
+
     // unused
     @Override
-    public <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs) {
+    public Iterator convertResultSetRecordsToIterator(CustomerType customerType, ResultSet rs) {
         return null;
     }
 }
