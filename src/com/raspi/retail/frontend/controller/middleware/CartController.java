@@ -9,6 +9,7 @@ import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.view.display.CartDisplay;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CartController implements Facade {
 
@@ -16,7 +17,7 @@ public class CartController implements Facade {
     CartDAO cDAO = (CartDAO) daoFactory.createDAOPrototype("cart");
 
     public void getUserCart(int userID, CustomerType userType) {
-        ArrayList<CartItem> cart = cDAO.getUserCart(userID, userType);
+        Iterator<CartItem> cart = cDAO.getUserCart(userID, userType);
         CartDisplay.displayUserCart(cart);
     }
 

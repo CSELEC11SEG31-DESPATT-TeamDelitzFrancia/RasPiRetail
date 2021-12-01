@@ -3,31 +3,46 @@ package com.raspi.retail.frontend.view.display;
 import com.raspi.retail.backend.model.dtos.AdminDTO;
 import com.raspi.retail.backend.model.dtos.customer.GuestDTO;
 import com.raspi.retail.backend.model.dtos.customer.MemberDTO;
-import com.raspi.retail.backend.model.dtos.enums.CustomerType;
 import com.raspi.retail.backend.model.dtos.UserDTO;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserDisplay {
 
-    public static void displayUsers(ArrayList<UserDTO> users) {
+    public static void displayUsers(Iterator<UserDTO> users) {
 
-        if(users.size() > 0) {
+        if(users.hasNext()) {
+        UserDTO firstUser = users.next();
 
-            if (users.get(0) instanceof MemberDTO) {
-                    users.forEach(user -> {
-                        MemberDTO currMember = (MemberDTO) user;
-                        System.out.println("\n============================================================================");
-                        System.out.println("[" + currMember.getId() + "]: " + currMember.getUsername());
-                        System.out.println("Name: " + currMember.getLastName() + ", " + currMember.getFirstName());
-                        System.out.println("Email: " + currMember.getEmail());
-                        System.out.println("Address: \n\t" + currMember.getAddressLine1() + "\n\t" + currMember.getAddressLine2());
-                        System.out.println("CCNo: " + currMember.getCcNo().getCcNo());
-                        System.out.println("============================================================================\n");
+            if (firstUser instanceof MemberDTO) {
+                MemberDTO firstMember = (MemberDTO) firstUser;
+                System.out.println("\n============================================================================");
+                System.out.println("[" + firstMember.getId() + "]: " + firstMember.getUsername());
+                System.out.println("Name: " + firstMember.getLastName() + ", " + firstMember.getFirstName());
+                System.out.println("Email: " + firstMember.getEmail());
+                System.out.println("Address: \n\t" + firstMember.getAddressLine1() + "\n\t" + firstMember.getAddressLine2());
+                System.out.println("CCNo: " + firstMember.getCcNo().getCcNo());
+                System.out.println("============================================================================\n");
+                users.forEachRemaining(user -> {
+                    MemberDTO currMember = (MemberDTO) user;
+                    System.out.println("\n============================================================================");
+                    System.out.println("[" + currMember.getId() + "]: " + currMember.getUsername());
+                    System.out.println("Name: " + currMember.getLastName() + ", " + currMember.getFirstName());
+                    System.out.println("Email: " + currMember.getEmail());
+                    System.out.println("Address: \n\t" + currMember.getAddressLine1() + "\n\t" + currMember.getAddressLine2());
+                    System.out.println("CCNo: " + currMember.getCcNo().getCcNo());
+                    System.out.println("============================================================================\n");
                     });
                 }
-            else if (users.get(0) instanceof GuestDTO) {
-                users.forEach(user -> {
+            else if (firstUser instanceof GuestDTO) {
+                GuestDTO firstGuest = (GuestDTO) firstUser;
+                System.out.println("\n============================================================================");
+                System.out.println("[" + firstGuest.getId() + "]: " + firstGuest.getEmail());
+                System.out.println("Name: " + firstGuest.getLastName() + ", " + firstGuest.getFirstName());
+                System.out.println("Address: \n\t" + firstGuest.getAddressLine1() + "\n\t" + firstGuest.getAddressLine2());
+                System.out.println("CCNo: " + firstGuest.getCcNo().getCcNo());
+                System.out.println("============================================================================\n");
+                users.forEachRemaining(user -> {
                     GuestDTO currGuest = (GuestDTO) user;
                     System.out.println("\n============================================================================");
                     System.out.println("[" + currGuest.getId() + "]: " + currGuest.getEmail());
@@ -38,8 +53,14 @@ public class UserDisplay {
 
                 });
             }
-            else if (users.get(0) instanceof AdminDTO) {
-                users.forEach(user -> {
+            else if (firstUser instanceof AdminDTO) {
+                AdminDTO firstAdmin = (AdminDTO) firstUser;
+                System.out.println("\n============================================================================");
+                System.out.println("[" + firstAdmin.getId() + "]: " + firstAdmin.getUsername());
+                System.out.println("Username: " + firstAdmin.getUsername());
+                System.out.println("Password: " + firstAdmin.getPassword());
+                System.out.println("============================================================================\n");
+                users.forEachRemaining(user -> {
                     AdminDTO currAdmin = (AdminDTO) user;
                     System.out.println("\n============================================================================");
                     System.out.println("[" + currAdmin.getId() + "]: " + currAdmin.getUsername());

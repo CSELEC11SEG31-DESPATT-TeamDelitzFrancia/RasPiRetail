@@ -2,14 +2,14 @@ package com.raspi.retail.frontend.view.display;
 
 import com.raspi.retail.backend.model.dtos.ProductDTO;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProductDisplay {
 
-    public static void displayProducts(ArrayList<ProductDTO> products) {
 
-        if(products.size() > 0) {
-            products.forEach(product ->  {
+    public static void displayProducts(Iterator<ProductDTO> products) {
+        if(products.hasNext()) {
+            products.forEachRemaining(product ->  {
                     System.out.println("\n=============================================");
                     System.out.println("[" + product.getId() + "]: " + product.getName());
                     System.out.println("\"" + product.getDescription() + "\"");
@@ -27,9 +27,7 @@ public class ProductDisplay {
         } else {
             System.out.println("No products exist.");
         }
-
     }
-
     public static void displayProduct(ProductDTO product) {
             System.out.println("\n=============================================");
             System.out.println("[" + product.getId() + "]: " + product.getName());

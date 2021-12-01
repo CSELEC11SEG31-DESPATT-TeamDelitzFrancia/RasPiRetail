@@ -8,6 +8,7 @@ import com.raspi.retail.backend.util.KBInput;
 import com.raspi.retail.frontend.view.display.ProductDisplay;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ProductController implements Facade {
 
@@ -19,7 +20,7 @@ public class ProductController implements Facade {
 
     @Override
     public void viewAll() {
-        ArrayList<ProductDTO> products = pDao.getAllProducts();
+        Iterator<ProductDTO> products = pDao.getAllProducts();
         ProductDisplay.displayProducts(products);
     }
 
@@ -29,12 +30,12 @@ public class ProductController implements Facade {
     }
 
     public void viewOneByName(String nameQuery) {
-        ArrayList<ProductDTO> foundProducts = pDao.getProductByName(nameQuery);
+        Iterator<ProductDTO> foundProducts = pDao.getProductByName(nameQuery);
         ProductDisplay.displayProducts(foundProducts);
     }
 
     public void viewOneByType(String typeQuery) {
-        ArrayList<ProductDTO> foundProducts = pDao.getProductByType(typeQuery);
+        Iterator<ProductDTO> foundProducts = pDao.getProductByType(typeQuery);
         ProductDisplay.displayProducts(foundProducts);
     }
 

@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserDAO implements DAO {
 
@@ -79,13 +80,12 @@ public class UserDAO implements DAO {
      * guests, or administrators.
      *
      * @param userType (CUSTOMER, GUEST, ADMIN) what type of user you are retrieving
-     * @param <DTOType> DTO type based on what user type you are retrieving
      * @return ArrayList based on what user type you are retrieving
      */
-    public <DTOType extends DTO> ArrayList<DTOType> getAllUsers(CustomerType userType) {
+    public Iterator<UserDTO> getAllUsers(CustomerType userType) {
 
 
-        ArrayList<DTOType> users = new ArrayList<>();
+        Iterator<UserDTO> users = null;
         ResultSet dbUsers;
 
         // set appropriate query based on customerType
@@ -95,7 +95,7 @@ public class UserDAO implements DAO {
             if(dbct != null && !setQuery.equals("")) {
                 PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
                 dbUsers = prepStmt.executeQuery();
-                users = convertResultSetRecordsToArrayList(userType, dbUsers);
+                users = convertResultSetRecordsToIterator(userType, dbUsers);
             } else {
                 System.err.println("Cannot connect to server. Please try again when the SQL server is running.");
             }
@@ -654,8 +654,7 @@ public class UserDAO implements DAO {
         }
 
     @Override
-    public <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs) {
-
+    public Iterator convertResultSetRecordsToIterator(CustomerType customerType, ResultSet rs) {
         if(customerType == CustomerType.CUSTOMER) {
             ArrayList<MemberDTO> customers = new ArrayList<>();
 
@@ -684,7 +683,7 @@ public class UserDAO implements DAO {
                 System.err.println("["+sqlExc.getErrorCode()+"]: " + sqlExc.getMessage());
             }
 
-            return (ArrayList<E>) customers;
+            return customers.iterator();
 
         }
         else if (customerType == CustomerType.GUEST) {
@@ -715,7 +714,7 @@ public class UserDAO implements DAO {
                 System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
             }
 
-            return (ArrayList<E>) guests;
+            return guests.iterator();
 
         }
         else if (customerType == CustomerType.ADMIN) {
@@ -740,7 +739,7 @@ public class UserDAO implements DAO {
                 System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
             }
 
-            return (ArrayList<E>) admins;
+            return admins.iterator();
 
         }
 
@@ -830,12 +829,12 @@ public class UserDAO implements DAO {
 
     // unused
     @Override
-    public <E> ArrayList<E> convertResultSetRecordsToArrayList(ResultSet rs) {
+    public DTO convertResultSetRecordToDTO(ResultSet rs) {
         return null;
     }
 
     @Override
-    public DTO convertResultSetRecordToDTO(ResultSet rs) {
+    public Iterator convertResultSetRecordsToIterator(ResultSet rs) {
         return null;
     }
 }

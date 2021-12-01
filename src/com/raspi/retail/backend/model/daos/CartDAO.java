@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CartDAO implements DAO {
 
@@ -81,11 +82,11 @@ public class CartDAO implements DAO {
      *
      * @param userID the customer id you wish to get a cart of.
      * @param customerType an enum of what type of customer you want to get the cart from.
-     * @return a customer's cart, which is basically an ArrayList of CartItems
+     * @return a customer's cart, which is basically an Iterator of CartItems
      */
-    public ArrayList<CartItem> getUserCart(int userID, CustomerType customerType) {
+    public Iterator<CartItem> getUserCart(int userID, CustomerType customerType) {
 
-        ArrayList<CartItem> cart = new ArrayList<>();
+        Iterator<CartItem> cart = null;
         ResultSet dbCart;
 
         // set appropriate query based on customerType
@@ -96,7 +97,7 @@ public class CartDAO implements DAO {
                 PreparedStatement prepStmt = dbct.prepareStatement(setQuery);
                 prepStmt.setInt(1, userID);
                 dbCart = prepStmt.executeQuery();
-                cart = convertResultSetRecordsToArrayList(dbCart);
+                cart = convertResultSetRecordsToIterator(dbCart);
             } else if(setQuery.equals("")) {
                   System.err.println("You didn't set a customer type. Please try again.");
             } else {
@@ -314,7 +315,7 @@ public class CartDAO implements DAO {
 
     // ========================================================================================== //
     @Override
-    public ArrayList<CartItem> convertResultSetRecordsToArrayList(ResultSet rs) {
+    public Iterator<CartItem> convertResultSetRecordsToIterator(ResultSet rs) {
         ArrayList<CartItem> cart = new ArrayList<>();
 
         try {
@@ -336,9 +337,7 @@ public class CartDAO implements DAO {
             System.err.println("Something went wrong when converting ResultSet to ArrayList.");
             System.err.println("[" + sqlExc.getErrorCode() + "]: " + sqlExc.getMessage());
         }
-
-        return cart;
-
+        return cart.iterator();
     }
 
     @Override
@@ -353,7 +352,7 @@ public class CartDAO implements DAO {
         return null;
     }
     @Override
-    public <E> ArrayList<E> convertResultSetRecordsToArrayList(CustomerType customerType, ResultSet rs) {
+    public Iterator convertResultSetRecordsToIterator(CustomerType customerType, ResultSet rs) {
         return null;
     }
 }
